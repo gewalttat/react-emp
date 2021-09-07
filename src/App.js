@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import ReactComponentExample from "./hw_1/components/React.Component/ReactComponentExample";
+import createElementExample from "./hw_1/components/React.CreateElement/createElementExample";
+import Pure from "./hw_1/components/React.PureComponent/pureComponentExample";
+import {SearchBar} from "./hw_1/components/React.FC/FuncComponentExample";
+import { Home } from "./hw_1/components/Main/Home";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Router>
+        <Switch>
+        <Route path="/" exact component={Home} />
+            <Route path="/reactComponent" exact component={ReactComponentExample} />
+            <Route path="/funcComponent" exact component={SearchBar} />
+            <Route path="/pureComponent" exact component={Pure} />
+            <Route path="/createElement" exact component={createElementExample} />
+        </Switch>
+    </Router>
+    </>
   );
 }
 
