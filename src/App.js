@@ -11,13 +11,11 @@ import {
 
 function App() {
   return (
-    <>
     <Router>
         <Switch>
         <Route path="/" exact component={MainPage}/>
         </Switch>
     </Router>
-    </>
   );
 }
 
