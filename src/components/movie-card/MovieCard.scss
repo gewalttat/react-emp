@@ -9,3 +9,21 @@
   box-sizing: border-box;
   border-radius: 4px;
 }
+
+.card-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: #2a202d;
+  position: absolute;
+  margin-top: 20px;
+  margin-left: 270px;
+  z-index: 20;
+  border-radius: 50%;
+
+  & svg {
+    fill: white;
+  }
+}

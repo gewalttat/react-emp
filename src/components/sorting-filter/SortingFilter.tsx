@@ -42,7 +42,11 @@ export const SortingFilter: FC = () => {
                     indicatorColor="secondary"
                     aria-label="secondary tabs example">
                     {movieGenres.map((genre: string, index: number) =>
-                        <Tab key={index} value={index} label={genre} sx={{ color: '#fff', fontWeight: 500, fontSize: 16 }} />
+                        <Tab
+                            key={index}
+                            value={index}
+                            label={genre}
+                            sx={{ color: '#fff', fontWeight: 500, fontSize: 16 }} />
                     )}
                     <Tab
                         value='error'
@@ -72,7 +76,8 @@ export const SortingFilter: FC = () => {
                             onChange={handleDropDownChange}>
                             {movieGenres.map((genre: string, index: number) =>
                                 <MenuItem
-                                    key={index} value={index}>{genre}</MenuItem>
+                                    key={index} 
+                                    value={index}>{genre}</MenuItem>
                             )}
                             <MenuItem
                                 onClick={() => setError(() => true)}>Error boundry</MenuItem>
