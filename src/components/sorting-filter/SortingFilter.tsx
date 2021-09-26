@@ -3,8 +3,8 @@ import React, { FC, useState } from 'react';
 import './SortingFilter.scss'
 
 export const SortingFilter: FC = () => {
-    const [value, setValue] = useState('one');
-    const [age, setAge] = React.useState('');
+    const [value, setValue] = useState<number>(0);
+    const [filter, setFilter] = React.useState<string>('');
     const [error, setError] = useState<boolean>(false);
 
     const movieGenres = ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'];
@@ -20,17 +20,17 @@ export const SortingFilter: FC = () => {
         },
     });
 
-    const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
+    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
     };
 
     const handleDropDownChange = (event: SelectChangeEvent) => {
-        setAge(event.target.value);
+        setFilter(event.target.value);
     };
 
     if (error) {
         throw new Error('error');
-      }
+    }
 
     return (
         <div className='sorting-filter-container'>
@@ -42,11 +42,17 @@ export const SortingFilter: FC = () => {
                     indicatorColor="secondary"
                     aria-label="secondary tabs example">
                     {movieGenres.map((genre: string, index: number) =>
-                        <Tab value={index} label={genre} sx={{ color: '#fff', fontWeight: 500, fontSize: 16 }} />
+                        <Tab key={index} value={index} label={genre} sx={{ color: '#fff', fontWeight: 500, fontSize: 16 }} />
                     )}
+                    <Tab
+                        value='error'
+                        label='error'
+                        onClick={() => setError(() => true)}
+                        sx={{ color: '#fff', fontWeight: 500, fontSize: 16 }} />
                 </Tabs>
-                <span className='www'>sort by</span>
-                <div className='qwe'>
+
+                <span className='sort-label'>sort by</span>
+                <div className='filter-wrapper'>
                     <FormControl
                         variant="standard"
                         sx={{
@@ -62,14 +68,14 @@ export const SortingFilter: FC = () => {
                             sx={{ color: '#fff', borderBottom: 'none', ":after": { borderBottom: 'none' }, ":before": { borderBottom: 'none' }, ":hover": { borderBottom: 'none' } }}
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
-                            value={age}
+                            value={filter}
                             onChange={handleDropDownChange}>
                             {movieGenres.map((genre: string, index: number) =>
                                 <MenuItem
-                                    value={index}>{genre}</MenuItem>
+                                    key={index} value={index}>{genre}</MenuItem>
                             )}
-                            <MenuItem 
-                            onClick={() => setError(() => true)}>Error boundry</MenuItem>
+                            <MenuItem
+                                onClick={() => setError(() => true)}>Error boundry</MenuItem>
                         </Select>
                     </FormControl>
                 </div>

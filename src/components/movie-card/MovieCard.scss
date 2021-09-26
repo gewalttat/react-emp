@@ -1,6 +1,11 @@
-#circle {
-    background: #f00;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
+.movie-year {
+  margin-left: 150px;
+  padding-left: 10px;
+  width: 66px;
+  height: 26px;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+  border: 1px solid #979797;
+  box-sizing: border-box;
+  border-radius: 4px;
 }
