@@ -9,8 +9,8 @@ export const MovieCard: FC = () => {
     const [showCardMenu, setShowCardMenu] = useState<boolean>(false);
 
     return (
-        <div onMouseEnter={() => setShowCardMenu(() => true)}
-            onMouseLeave={() => setShowCardMenu(() => false)}>
+        <div onMouseEnter={() => setShowCardMenu(true)}
+            onMouseLeave={() => setShowCardMenu(false)}>
 
             {showCardMenu &&
                 <div className='card-menu'>
