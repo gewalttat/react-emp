@@ -12,7 +12,7 @@ export const SearchInput: FC = () => {
                     <input
                         type="text"
                         placeholder='What do you want to watch?'
-                        className='search-input'></input>
+                        className='search-input'/>
                     <div
                         className='search-button'
                         onClick={() => console.log('search event')}>

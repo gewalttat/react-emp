@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 
-export const AppHeader: FC = () => {
+export const SelectedMovieInfo: FC = () => {
 return (
-    <h1> app header </h1>
+    <h1>select movie info</h1>
 )
 }

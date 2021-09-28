@@ -1,4 +1,4 @@
-import { createTheme, FormControl, MenuItem, Select, SelectChangeEvent, Tab, Tabs, ThemeProvider, Button } from '@material-ui/core';
+import { createTheme, FormControl, MenuItem, Select, SelectChangeEvent, Tab, Tabs, ThemeProvider } from '@material-ui/core';
 import React, { FC, useState } from 'react';
 import './SortingFilter.scss'
 
@@ -43,7 +43,7 @@ export const SortingFilter: FC = () => {
                     aria-label="secondary tabs example">
                     {movieGenres.map((genre: string, index: number) =>
                         <Tab
-                            key={index}
+                            key={genre[index]}
                             value={index}
                             label={genre}
                             sx={{ color: '#fff', fontWeight: 500, fontSize: 16 }} />
@@ -76,11 +76,12 @@ export const SortingFilter: FC = () => {
                             onChange={handleDropDownChange}>
                             {movieGenres.map((genre: string, index: number) =>
                                 <MenuItem
-                                    key={index} 
-                                    value={index}>{genre}</MenuItem>
+                                    key={genre[index]}
+                                    value={index}>
+                                    {genre}
+                                </MenuItem>
                             )}
-                            <MenuItem
-                                onClick={() => setError(() => true)}>Error boundry</MenuItem>
+                            <MenuItem onClick={() => setError(() => true)}>Error boundry</MenuItem>
                         </Select>
                     </FormControl>
                 </div>

@@ -29,10 +29,10 @@ export const MovieCardMenu: FC = () => {
     handleClose();
   };
 
-  const openEditDialog = () => {
-    setOpenDialog(() => 'edit');
-    handleClose();
-  };
+  // const openEditDialog = () => {
+  //   setOpenDialog(() => 'edit');
+  //   handleClose();
+  // };
 
   const closeDialog = () => {
     setOpenDialog(() => null);

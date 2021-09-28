@@ -15,7 +15,7 @@ export const MoviesContainer: FC = () => {
           marginLeft: '0px',
           marginTop: '0px',
           borderColor: '#424242'
-        }}></hr>
+        }}/>
         <Typography
           sx={{
             color: '#fff',
@@ -26,16 +26,27 @@ export const MoviesContainer: FC = () => {
             paddingTop: '30px'
           }}
           variant="body2"
-          color="text.secondary"><b>39</b> movies found
+          color="text.secondary">
+          <b>39</b>movies found
         </Typography>
         <div className='movies-grid'>
           <Grid
             container
-            spacing={{ xs: 2, md: 3 }}
-            columns={{ xs: 4, sm: 8, md: 12.5 }}>
+            spacing={{
+              xs: 2,
+              md: 3
+            }}
+            columns={{
+              xs: 4,
+              sm: 8,
+              md: 12.5
+            }}>
             {Array.from(Array(6)).map((_, index) => (
               <Grid
-                item xs={2} sm={4} md={4}
+                item
+                xs={2}
+                sm={4}
+                md={4}
                 key={index}>
                 <MovieCard />
               </Grid>

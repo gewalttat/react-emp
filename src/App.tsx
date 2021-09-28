@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 
 
-function App() {
+function App(): JSX.Element {
   return (
     <Router>
         <Switch>

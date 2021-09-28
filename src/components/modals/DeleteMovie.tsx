@@ -6,7 +6,6 @@ interface DeleteMovieProps {
     onClose: () => void
 }
 
-
 export const DeleteMovie: FC<DeleteMovieProps> = ({ open, onClose }) => {
     return (
         <div>

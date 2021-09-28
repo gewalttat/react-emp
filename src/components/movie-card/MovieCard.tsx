@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@material-ui/core';
-import { MovieCardMenu } from './MovieCardMenu';
+import { MovieCardMenu } from '../movie-card-menu/MovieCardMenu';
 import cardImage from '../../assets/images/movie-card.jpg'
 import './MovieCard.scss'
 
@@ -50,7 +50,8 @@ export const MovieCard: FC = () => {
                                 fontSize: '18px',
                                 lineHeight: '22px',
                                 display: 'inline-flex',
-                            }}>Pulp Fiction
+                            }}>
+                                Pulp Fiction
                             <div className='movie-year'>2004</div>
                         </Typography>
 
@@ -64,7 +65,8 @@ export const MovieCard: FC = () => {
                                 lineHeight: '17px'
                             }}
                             variant="body2"
-                            color="text.secondary">Action & Adventure
+                            color="text.secondary">
+                                Action & Adventure
                         </Typography>
                     </CardContent>
                 </CardActionArea>
