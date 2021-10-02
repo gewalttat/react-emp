@@ -1,7 +1,9 @@
 import { IconButton, Menu, MenuItem } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { DeleteMovie } from '../modals/DeleteMovie';
+import { DeleteMovie } from '../modals/DeleteMovie/DeleteMovie';
+import { EditMovie } from '../modals/EditMovie/EditMoive';
 import React, { FC, useState } from 'react';
+import { MovieData } from '../movies-container/MoviesContainer';
 
 const options = [
   'Edit',
@@ -10,7 +12,11 @@ const options = [
 
 const ITEM_HEIGHT = 48;
 
-export const MovieCardMenu: FC = () => {
+interface MovieCardMenuProps {
+  movieData: MovieData
+}
+
+export const MovieCardMenu: FC<MovieCardMenuProps> = ({movieData}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [openDialogName, setOpenDialog] = React.useState<string | null>('');
 
@@ -29,10 +35,10 @@ export const MovieCardMenu: FC = () => {
     handleClose();
   };
 
-  // const openEditDialog = () => {
-  //   setOpenDialog(() => 'edit');
-  //   handleClose();
-  // };
+  const openEditDialog = () => {
+    setOpenDialog(() => 'edit');
+    handleClose();
+  };
 
   const closeDialog = () => {
     setOpenDialog(() => null);
@@ -72,7 +78,7 @@ export const MovieCardMenu: FC = () => {
           <MenuItem
             key={option}
             selected={option === 'Pyxis'}
-            onClick={openDeleteDialog}
+            onClick={option === 'Delete' ? openDeleteDialog : openEditDialog}
             sx={{
               ":hover": {
                 backgroundColor: '#f65261'
@@ -83,6 +89,7 @@ export const MovieCardMenu: FC = () => {
         ))}
       </Menu>
       <DeleteMovie open={openDialogName === 'delete'} onClose={closeDialog} />
+      <EditMovie open={openDialogName === 'edit'} onClose={closeDialog} movieData={movieData}/>
     </div>
   );
 }
