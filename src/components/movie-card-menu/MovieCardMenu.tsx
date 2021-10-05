@@ -18,7 +18,7 @@ interface MovieCardMenuProps {
 
 export const MovieCardMenu: FC<MovieCardMenuProps> = ({movieData}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [openDialogName, setOpenDialog] = React.useState<string | null>('');
+  const [openDialogName, setOpenDialog] = React.useState<string>('');
 
   const open = Boolean(anchorEl);
 
@@ -31,17 +31,17 @@ export const MovieCardMenu: FC<MovieCardMenuProps> = ({movieData}) => {
   };
 
   const openDeleteDialog = () => {
-    setOpenDialog(() => 'delete');
+    setOpenDialog('delete');
     handleClose();
   };
 
   const openEditDialog = () => {
-    setOpenDialog(() => 'edit');
+    setOpenDialog('edit');
     handleClose();
   };
 
   const closeDialog = () => {
-    setOpenDialog(() => null);
+    setOpenDialog('');
   };
 
   return (

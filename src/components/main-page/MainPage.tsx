@@ -1,9 +1,7 @@
 import React, { FC, useState, useContext, createContext } from 'react';
-
 import { AppFooter } from '../app-footer/AppFooter';
 import { AppHeader } from '../app-header/AppHeader';
 import { MoviesContainer } from '../movies-container/MoviesContainer';
-import { SelectedMovieInfo } from '../selected-movie-info/SelectedMovieInfo';
 
 
 interface showMovieContext {
@@ -28,7 +26,6 @@ export const MainPage: FC = () => {
         <>
             <MyGlobalContext.Provider value={{ showMovie, setShowMovie }}>
                 <AppHeader />
-                <SelectedMovieInfo />
                 <MoviesContainer />
                 <AppFooter />
             </MyGlobalContext.Provider>
