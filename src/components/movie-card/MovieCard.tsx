@@ -4,6 +4,7 @@ import { MovieCardMenu } from '../movie-card-menu/MovieCardMenu';
 import cardImage from '../../assets/images/movie-card.jpg'
 import './MovieCard.scss'
 import { MovieData } from '../movies-container/MoviesContainer';
+import {useGlobalContext} from '../main-page/MainPage';
 
 
 interface MovieDataProps {
@@ -13,11 +14,10 @@ movieData: MovieData;
 export const MovieCard: FC<MovieDataProps> = ({movieData}) => {
 
     const [showCardMenu, setShowCardMenu] = useState<boolean>(false);
+    const {showMovie, setShowMovie} = useGlobalContext();
 
     return (
-        <div onMouseEnter={() => setShowCardMenu(true)}
-            onMouseLeave={() => setShowCardMenu(false)}>
-
+        <div onMouseEnter={() => setShowCardMenu(true)}>
             {showCardMenu &&
                 <div className='card-menu'>
                     <MovieCardMenu movieData={movieData} />
@@ -32,7 +32,7 @@ export const MovieCard: FC<MovieDataProps> = ({movieData}) => {
                     boxShadow: 'none',
                     zIndex: 1,
                 }}>
-                <CardActionArea>
+                <CardActionArea onClick={() => setShowMovie(!showMovie)}>
                     <CardMedia
                         component="img"
                         height="486"

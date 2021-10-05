@@ -1,30 +1,38 @@
 import React, { FC, useState } from 'react';
 import { SearchInput } from '../search-input/SearchInput';
-import {AddMovie} from '../modals/AddMovie/AddMovie';
+import { AddMovie } from '../modals/AddMovie/AddMovie';
+import { SelectedMovieInfo } from '../selected-movie-info/SelectedMovieInfo';
+import { useGlobalContext } from '../main-page/MainPage';
 import './AppHeader.scss'
 
 export const AppHeader: FC = () => {
-  const [openDialogName, setOpenDialog] = useState<string | null>('');
+  const [openAddMovieDialog, setOpenAddMovieDialog] = useState<boolean>(false);
+  const { showMovie } = useGlobalContext();
 
   const openAddDialog = () => {
-    setOpenDialog(() => 'add');
+    setOpenAddMovieDialog(true);
   };
 
   const closeDialog = () => {
-    setOpenDialog(() => null);
+    setOpenAddMovieDialog(false);
   };
 
   return (
-    <div className='header'>
-      <div className='header-text'>
-        <span className='header-text__bold'>netflix</span>
-        <span>roulette</span>
-      </div>
-      <div className='header-add-button' onClick={openAddDialog}>
-        <span className='header-add-button__caption'>+ add movie</span>
-      </div>
-      <SearchInput />
-      <AddMovie open={openDialogName === 'add'} onClose={closeDialog} />
-    </div>
+
+    <>
+      {showMovie ? <SelectedMovieInfo /> :
+        <div className='header'>
+          <div className='header-text'>
+            <span className='header-text__bold'>netflix</span>
+            <span>roulette</span>
+          </div>
+          <div className='header-add-button' onClick={openAddDialog}>
+            <span className='header-add-button__caption'>+ add movie</span>
+          </div>
+          <SearchInput />
+          <AddMovie open={openAddMovieDialog} onClose={closeDialog} />
+        </div>
+      }
+    </>
   )
 }
