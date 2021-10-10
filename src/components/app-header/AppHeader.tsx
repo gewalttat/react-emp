@@ -20,7 +20,7 @@ export const AppHeader: FC = () => {
   return (
 
     <>
-      {showMovie ? <SelectedMovieInfo /> :
+      {showMovie ? <SelectedMovieInfo/> :
         <div className='header'>
           <div className='header-text'>
             <span className='header-text__bold'>netflix</span>
