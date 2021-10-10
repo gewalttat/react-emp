@@ -3,9 +3,29 @@ import React, { FC } from 'react';
 import ErrorBoundary from '../error-boundary/ErrorBoundary';
 import { MovieCard } from '../movie-card/MovieCard';
 import { SortingFilter } from '../sorting-filter/SortingFilter';
-import './MoviesContainer.scss'
+import moment from 'moment';
+import './MoviesContainer.scss';
+
+export interface MovieData {
+  name: string,
+  year: string,
+  genre: string,
+  rating: string,
+  runtime: string,
+  overview: string
+}
 
 export const MoviesContainer: FC = () => {
+
+  const movieData: MovieData = {
+    name: 'Pulp Fiction',
+    year: moment().subtract(10, 'days').calendar(),
+    genre: 'CRIME',
+    rating: '7.8',
+    runtime: '137',
+    overview: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
+  };
+
   return (
     <div className='movies-container'>
       <ErrorBoundary>
@@ -15,7 +35,7 @@ export const MoviesContainer: FC = () => {
           marginLeft: '0px',
           marginTop: '0px',
           borderColor: '#424242'
-        }}/>
+        }} />
         <Typography
           sx={{
             color: '#fff',
@@ -48,7 +68,7 @@ export const MoviesContainer: FC = () => {
                 sm={4}
                 md={4}
                 key={index}>
-                <MovieCard />
+                <MovieCard movieData={movieData} />
               </Grid>
             ))}
           </Grid>

@@ -3,18 +3,24 @@ import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mater
 import { MovieCardMenu } from '../movie-card-menu/MovieCardMenu';
 import cardImage from '../../assets/images/movie-card.jpg'
 import './MovieCard.scss'
+import { MovieData } from '../movies-container/MoviesContainer';
+import {useGlobalContext} from '../main-page/MainPage';
 
-export const MovieCard: FC = () => {
+
+interface MovieDataProps {
+movieData: MovieData;
+}
+
+export const MovieCard: FC<MovieDataProps> = ({movieData}) => {
 
     const [showCardMenu, setShowCardMenu] = useState<boolean>(false);
+    const {showMovie, setShowMovie} = useGlobalContext();
 
     return (
-        <div onMouseEnter={() => setShowCardMenu(true)}
-            onMouseLeave={() => setShowCardMenu(false)}>
-
+        <div onMouseEnter={() => setShowCardMenu(true)}>
             {showCardMenu &&
                 <div className='card-menu'>
-                    <MovieCardMenu />
+                    <MovieCardMenu movieData={movieData} />
                 </div>}
 
             <Card
@@ -26,7 +32,7 @@ export const MovieCard: FC = () => {
                     boxShadow: 'none',
                     zIndex: 1,
                 }}>
-                <CardActionArea>
+                <CardActionArea onClick={() => setShowMovie(!showMovie)}>
                     <CardMedia
                         component="img"
                         height="486"
@@ -51,8 +57,8 @@ export const MovieCard: FC = () => {
                                 lineHeight: '22px',
                                 display: 'inline-flex',
                             }}>
-                                Pulp Fiction
-                            <div className='movie-year'>2004</div>
+                                {movieData.name}
+                            <div className='movie-year'>{movieData.year}</div>
                         </Typography>
 
                         <Typography
@@ -66,7 +72,7 @@ export const MovieCard: FC = () => {
                             }}
                             variant="body2"
                             color="text.secondary">
-                                Action & Adventure
+                                {movieData.genre}
                         </Typography>
                     </CardContent>
                 </CardActionArea>

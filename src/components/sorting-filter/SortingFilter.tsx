@@ -2,12 +2,12 @@ import { createTheme, FormControl, MenuItem, Select, SelectChangeEvent, Tab, Tab
 import React, { FC, useState } from 'react';
 import './SortingFilter.scss'
 
+export const movieGenres = ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'];
+
 export const SortingFilter: FC = () => {
     const [value, setValue] = useState<number>(0);
     const [filter, setFilter] = React.useState<string>('');
     const [error, setError] = useState<boolean>(false);
-
-    const movieGenres = ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'];
 
     const theme = createTheme({
         palette: {

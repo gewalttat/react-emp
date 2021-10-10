@@ -1,0 +1,160 @@
+.overview {
+  &__textarea {
+    width: 90%;
+    margin-left: 10px;
+    margin-top: 10px;
+    padding: 20px;
+    background-color: #424242;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    outline: none;
+    resize: none;
+  }
+
+  span {
+    margin-top: 10px;
+    padding-left: 10px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.888889px;
+    text-transform: uppercase;
+    color: #f65261;
+    mix-blend-mode: normal;
+    opacity: 0.8;
+  }
+}
+
+.textfield {
+  z-index: 1;
+}
+
+.textfield input {
+  color: #fff;
+  border: none;
+  outline: none;
+  opacity: 0.8;
+}
+
+.genre-selector div {
+  color: #fff;
+}
+
+.genre-selector input {
+  display: none;
+}
+
+.datepicker {
+  mix-blend-mode: normal;
+  opacity: 0.8;
+  border-radius: 4px;
+  width: 200px;
+  height: 57px;
+  margin-left: 345px;
+  margin-top: -110px;
+
+  & input {
+    margin-top: 8px;
+    width: 91%;
+    height: 96%;
+    background-color: #454545;
+    border: none;
+    color: #fff;
+    padding-left: 15px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  & button {
+    color: #f56;
+    margin-top: -50px;
+    margin-left: 75%;
+  }
+
+  & span {
+    font-family: Montserrat;
+    font-weight: 600;
+    letter-spacing: 0.888889px;
+    text-transform: uppercase;
+    color: #f65261;
+    mix-blend-mode: normal;
+    opacity: 0.8;
+  }
+}
+
+.rating {
+  width: 40%;
+  margin-left: 62%;
+
+  & span {
+    font-family: Montserrat;
+    font-weight: 600;
+    letter-spacing: 0.888889px;
+    text-transform: uppercase;
+    color: #f65261;
+    mix-blend-mode: normal;
+    opacity: 0.8;
+    padding-left: 10px;
+  }
+}
+
+.movie-url {
+  width: 40%;
+  margin-top: -16.5%;
+
+  & span {
+    font-family: Montserrat;
+    font-weight: 600;
+    letter-spacing: 0.888889px;
+    text-transform: uppercase;
+    color: #f65261;
+    mix-blend-mode: normal;
+    opacity: 0.8;
+    padding-left: 10px;
+  }
+}
+
+.runtime {
+  margin-left: 62%;
+  margin-top: -16.5%;
+
+  & span {
+    font-family: Montserrat;
+    font-weight: 600;
+    letter-spacing: 0.888889px;
+    text-transform: uppercase;
+    color: #f65261;
+    mix-blend-mode: normal;
+    opacity: 0.8;
+    padding-left: 10px;
+  }
+}
+
+.title span {
+    padding-left: 10px;
+    font-family: Montserrat;
+    font-weight: 600;
+    letter-spacing: 0.888889px;
+    text-transform: uppercase;
+    color: #f65261;
+    mix-blend-mode: normal;
+    opacity: 0.8;
+  }
+
+  .genre span {
+    font-family: Montserrat;
+    font-weight: 600;
+    letter-spacing: 0.888889px;
+    text-transform: uppercase;
+    color: #f65261;
+    mix-blend-mode: normal;
+    opacity: 0.8;
+    padding-left: 10px;
+  }
+
