@@ -4,8 +4,13 @@ import React, { FC } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import './SelectedMovieInfo.scss'
 import { useGlobalContext } from '../main-page/MainPage';
+import { MovieData } from '../movies-container/MoviesContainer';
 
-export const SelectedMovieInfo: FC = () => {
+interface SelectedMovieInfoProps {
+    selectedMovie: MovieData | null;
+}
+
+export const SelectedMovieInfo: FC<SelectedMovieInfoProps> = ({selectedMovie}) => {
 
     const { showMovie, setShowMovie } = useGlobalContext();
 
@@ -27,20 +32,20 @@ export const SelectedMovieInfo: FC = () => {
                     <Grid item xs container direction="column" spacing={2}>
                         <Grid item xs sx={{ marginTop: 1 }}>
                             <div style={{ display: 'inline-flex', marginLeft: 40}}>
-                                <span className='movie-info-header'>PULP FICTION</span>
-                                <div className='movie-info-rating'><span className='rating-text'>8.9</span></div>
+                                <span className='movie-info-header'>{selectedMovie?.name}</span>
+                                <div className='movie-info-rating'><span className='rating-text'>{selectedMovie?.rating}</span></div>
                             </div>
                             <Typography variant="body2" gutterBottom sx={{marginLeft: 5, marginTop: 1}}>
-                                <span className='genre'>Action & Adventure</span>
+                                <span className='genre'>{selectedMovie?.genre}</span>
                             </Typography>
 
                             <Typography variant="body2" color="text.secondary" sx={{marginLeft: 5, marginTop: 2}}>
-                                <span className='date-rotate'>1994&nbsp;&nbsp;&nbsp;</span>
+                                <span className='date-rotate'>{selectedMovie?.year}&nbsp;&nbsp;&nbsp;</span>
                                 <span className='date-rotate'>&nbsp;&nbsp;&nbsp;2h 36m</span>
                             </Typography>
 
                             <Typography variant="body2" color="text.secondary" sx={{marginTop: 3, marginLeft: 5}}>
-                                <span className='description'>Jules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising of a series of funny, bizarre and uncalled-for incidents.—Soumitra</span>
+                                <span className='description'>{selectedMovie?.overview}</span>
                             </Typography>
                         </Grid>
                     </Grid>

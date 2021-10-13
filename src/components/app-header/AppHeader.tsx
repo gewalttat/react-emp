@@ -4,10 +4,17 @@ import { AddMovie } from '../modals/AddMovie/AddMovie';
 import { SelectedMovieInfo } from '../selected-movie-info/SelectedMovieInfo';
 import { useGlobalContext } from '../main-page/MainPage';
 import './AppHeader.scss'
+import { MovieData } from '../movies-container/MoviesContainer';
 
-export const AppHeader: FC = () => {
+interface AppHeaderProps {
+selectedMovie: MovieData | null
+}
+
+export const AppHeader: FC<AppHeaderProps> = ({selectedMovie}) => {
   const [openAddMovieDialog, setOpenAddMovieDialog] = useState<boolean>(false);
   const { showMovie } = useGlobalContext();
+
+  console.log(selectedMovie, 'cs movie')
 
   const openAddDialog = () => {
     setOpenAddMovieDialog(true);
@@ -20,7 +27,7 @@ export const AppHeader: FC = () => {
   return (
 
     <>
-      {showMovie ? <SelectedMovieInfo/> :
+      {showMovie ? <SelectedMovieInfo selectedMovie={selectedMovie}/> :
         <div className='header'>
           <div className='header-text'>
             <span className='header-text__bold'>netflix</span>

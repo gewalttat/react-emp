@@ -13,7 +13,7 @@ const options = [
 const ITEM_HEIGHT = 48;
 
 interface MovieCardMenuProps {
-  movieData: MovieData
+  movieData: MovieData;
 }
 
 export const MovieCardMenu: FC<MovieCardMenuProps> = ({movieData}) => {

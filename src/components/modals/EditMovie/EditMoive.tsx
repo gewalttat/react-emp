@@ -20,7 +20,7 @@ import './EditMovie.scss';
 interface EditMovieProps {
     open: boolean,
     onClose: () => void,
-    movieData: MovieData
+    movieData: MovieData;
 }
 
 export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {

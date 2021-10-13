@@ -14,7 +14,7 @@ movieData: MovieData;
 export const MovieCard: FC<MovieDataProps> = ({movieData}) => {
 
     const [showCardMenu, setShowCardMenu] = useState<boolean>(false);
-    const {showMovie, setShowMovie} = useGlobalContext();
+    const {showMovie, setShowMovie, setSelectedMovie} = useGlobalContext();
 
     return (
         <div onMouseEnter={() => setShowCardMenu(true)}>
@@ -32,7 +32,10 @@ export const MovieCard: FC<MovieDataProps> = ({movieData}) => {
                     boxShadow: 'none',
                     zIndex: 1,
                 }}>
-                <CardActionArea onClick={() => setShowMovie(!showMovie)}>
+                <CardActionArea onClick={() => {
+                    setShowMovie(true);
+                    setSelectedMovie(movieData);
+                }}>
                     <CardMedia
                         component="img"
                         height="486"

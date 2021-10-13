@@ -17,14 +17,23 @@ export interface MovieData {
 
 export const MoviesContainer: FC = () => {
 
-  const movieData: MovieData = {
+  const movieData: MovieData[] = [{
     name: 'Pulp Fiction',
     year: moment().subtract(10, 'days').calendar(),
     genre: 'CRIME',
     rating: '7.8',
     runtime: '137',
     overview: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
-  };
+  },
+{
+  name: 'Kill Bill',
+  year: moment().subtract(10, 'days').calendar(),
+  genre: 'CRIME',
+  rating: '7.8',
+  runtime: '137',
+  overview: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
+}
+];
 
   return (
     <div className='movies-container'>
@@ -61,14 +70,14 @@ export const MoviesContainer: FC = () => {
               sm: 8,
               md: 12.5
             }}>
-            {Array.from(Array(6)).map((_, index) => (
+            {movieData.map((i, index) => (
               <Grid
                 item
                 xs={2}
                 sm={4}
                 md={4}
                 key={index}>
-                <MovieCard movieData={movieData} />
+                <MovieCard movieData={i} />
               </Grid>
             ))}
           </Grid>
