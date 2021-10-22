@@ -6,7 +6,6 @@ import {
     DialogActions,
     Box,
     TextField,
-    MenuItem,
     TextareaAutosize,
 } from '@material-ui/core';
 import { DesktopDatePicker } from '@material-ui/lab';
@@ -14,7 +13,6 @@ import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import React, { FC, useState } from 'react';
 import { MovieData } from '../../movies-container/MoviesContainer';
-import { movieGenres } from '../../sorting-filter/SortingFilter';
 import './EditMovie.scss';
 
 interface EditMovieProps {
@@ -76,7 +74,7 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                     required
                                     id="outlined-required"
                                     placeholder="Movie name"
-                                    value={movieData.name}
+                                    value={movieData.title}
                                 />
                             </div>
                             <div className='release-date'>
@@ -84,7 +82,7 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                                     <DesktopDatePicker
                                         label="Custom input"
-                                        value={movieData.year}
+                                        value={movieData.release_date}
                                         onChange={(newValue) => {
                                             console.log(newValue);
                                         }}
@@ -107,7 +105,7 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                     required
                                     id="outlined-required"
                                     placeholder="7.8"
-                                    value={movieData.rating}
+                                    value={movieData.vote_average}
                                 />
                             </div>
                             <div className='movie-url'>
@@ -128,14 +126,14 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                     style={{ width: '320px', backgroundColor: '#424242' }}
                                     id="outlined-select-currency"
                                     select
-                                    value={movieData.genre}
+                                    value={movieData.genres.join(', ')}
                                     onChange={handleDropDownChange}
                                 >
-                                    {movieGenres.map((option) => (
+                                    {/* {movieGenres.map((option) => (
                                         <MenuItem key={option} value={option}>
                                             {option}
                                         </MenuItem>
-                                    ))}
+                                    ))} */}
                                 </TextField>
                             </div>
                             <div className='runtime'>

@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@material-ui/core';
 import { MovieCardMenu } from '../movie-card-menu/MovieCardMenu';
-import cardImage from '../../assets/images/movie-card.jpg'
 import './MovieCard.scss'
 import { MovieData } from '../movies-container/MoviesContainer';
 import {useGlobalContext} from '../main-page/MainPage';
@@ -14,7 +13,7 @@ movieData: MovieData;
 export const MovieCard: FC<MovieDataProps> = ({movieData}) => {
 
     const [showCardMenu, setShowCardMenu] = useState<boolean>(false);
-    const {showMovie, setShowMovie, setSelectedMovie} = useGlobalContext();
+    const {setShowMovie, setSelectedMovie} = useGlobalContext();
 
     return (
         <div onMouseEnter={() => setShowCardMenu(true)}>
@@ -39,7 +38,7 @@ export const MovieCard: FC<MovieDataProps> = ({movieData}) => {
                     <CardMedia
                         component="img"
                         height="486"
-                        image={cardImage}
+                        image={movieData.poster_path}
                         alt="card image"
                     />
                     <CardContent sx={{
@@ -60,8 +59,8 @@ export const MovieCard: FC<MovieDataProps> = ({movieData}) => {
                                 lineHeight: '22px',
                                 display: 'inline-flex',
                             }}>
-                                {movieData.name}
-                            <div className='movie-year'>{movieData.year}</div>
+                                {movieData.title}
+                            <div className='movie-year'>{movieData.release_date.substring(0, 4)}</div>
                         </Typography>
 
                         <Typography
@@ -75,7 +74,7 @@ export const MovieCard: FC<MovieDataProps> = ({movieData}) => {
                             }}
                             variant="body2"
                             color="text.secondary">
-                                {movieData.genre}
+                                {movieData.genres.join(', ')}
                         </Typography>
                     </CardContent>
                 </CardActionArea>

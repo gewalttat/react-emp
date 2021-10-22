@@ -6,14 +6,12 @@ import {
     DialogActions,
     Box,
     TextField,
-    MenuItem,
     TextareaAutosize,
 } from '@material-ui/core';
 import { DesktopDatePicker } from '@material-ui/lab';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 import React, { FC, useState } from 'react';
-import { movieGenres } from '../../sorting-filter/SortingFilter';
 import '../EditMovie/EditMovie.scss';
 
 interface AddMovieProps {
@@ -128,11 +126,11 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                     value={genre}
                                     onChange={handleDropDownChange}
                                 >
-                                    {movieGenres.map((option) => (
+                                    {/* {movieGenres.map((option) => (
                                         <MenuItem key={option} value={option}>
                                             {option}
                                         </MenuItem>
-                                    ))}
+                                    ))} */}
                                 </TextField>
                             </div>
                             <div className='runtime'>
