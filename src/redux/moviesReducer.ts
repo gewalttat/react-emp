@@ -1,28 +1,27 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './configureStore';
-import { MovieData, ResponseMoviesType } from '../components/movies-container/MoviesContainer';
+import { MovieData } from '../components/movies-container/MoviesContainer';
+import DataService from '../../services/service'
 import axios from 'axios';
 
 export const getMovies = createAsyncThunk('getMovies', async () => {
-  const response = await axios.get<ResponseMoviesType>("http://localhost:4000/movies").then(res => res.data.data);
+  const response = await DataService.getAllMovies();
   return response;
 });
 
 export const filterMovies = createAsyncThunk('filterMovies', async (filter: string) => {
-  const response = await axios.get<ResponseMoviesType>(`http://localhost:4000/movies?filter=${filter}`).then(res => res.data.data);
-  console.log(response);
+  const response = await DataService.sortMovies(filter);
   return response;
 });
 
 export const sortMovies = createAsyncThunk('sortMovies', async (sortBy: string) => {
-  const response = await axios.get<ResponseMoviesType>(`http://localhost:4000/movies?sortBy=${sortBy}&sortOrder=desc`).then(res => res.data.data);
+  const response = await DataService.sortMovies(sortBy);
   return response;
 });
 
 export const filterAndSortMovies = createAsyncThunk('filterAndSortMovies', async (params: {sortBy: string, filter: string}) => {
   const { filter, sortBy } = params;
-  const response = await axios.get<ResponseMoviesType>(`http://localhost:4000/movies?sortBy=${sortBy}&sortOrder=desc&filter=${filter}`).then(res => res.data.data);
-  console.log(response, 'ssss')
+  const response = await DataService.sortAndFilterMovies(sortBy, filter);
   return response;
 });
 
@@ -86,7 +85,7 @@ const moviesSlice = createSlice({
   }
 });
 
-export const selectTodos: (state: RootState) => MoviesSliceType = (state: RootState) => state.movies;
+export const selectMovies: (state: RootState) => MoviesSliceType = (state: RootState) => state.movies;
 
 export const { resetState } = moviesSlice.actions;
 

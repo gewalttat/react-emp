@@ -1,7 +1,7 @@
 import { createTheme, FormControl, MenuItem, Select, SelectChangeEvent, Tab, Tabs, ThemeProvider } from '@material-ui/core';
-import axios from 'axios';
 import React, { FC, useEffect, useState } from 'react';
-import { ResponseMoviesType } from '../movies-container/MoviesContainer';
+import DataService from '../../../services/service'
+import { MovieData } from '../movies-container/MoviesContainer';
 import './SortingFilter.scss'
 
 interface SortingFilterProps {
@@ -14,8 +14,8 @@ export const SortingFilter: FC<SortingFilterProps> = ({ filterChanged, sortByCha
     const [movieGenres, setMovieGenres] = useState<string[]>([]);
 
     useEffect(() => {
-        axios.get<ResponseMoviesType>(`http://localhost:4000/movies`).then((res) => {
-            setMovieGenres(Array.from(new Set(res.data.data.map(i => i.genres).flat())));
+        DataService.getAllMovies().then((res: MovieData[]) => {
+            setMovieGenres(Array.from(new Set(res.map(i => i.genres).flat())));
         })
     }, []);
 
@@ -50,7 +50,7 @@ export const SortingFilter: FC<SortingFilterProps> = ({ filterChanged, sortByCha
                     aria-label="secondary tabs example">
                     {movieGenres.map((genre: string, index: number) =>
                         <Tab
-                            key={index}
+                            key={genre}
                             value={index}
                             label={genre}
                             sx={{ color: '#fff', fontWeight: 500, fontSize: 16 }}

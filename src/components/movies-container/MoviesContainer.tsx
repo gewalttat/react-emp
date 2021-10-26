@@ -5,7 +5,7 @@ import { MovieCard } from '../movie-card/MovieCard';
 import { SortingFilter } from '../sorting-filter/SortingFilter';
 import './MoviesContainer.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMovies, filterMovies, filterAndSortMovies, sortMovies, selectTodos } from '../../redux/moviesReducer';
+import { getMovies, filterMovies, filterAndSortMovies, sortMovies, selectMovies } from '../../redux/moviesReducer';
 
 export interface MovieData {
   budget: number;
@@ -33,7 +33,7 @@ export const MoviesContainer: FC = () => {
   const [filteredMovies, setFilteredMovies] = useState<MovieData[]>();
   const [filter, filterChanged] = useState<string>();
   const [sortBy, sortByChanged] = useState<string>();
-  const { movies } = useSelector(selectTodos);
+  const { movies } = useSelector(selectMovies);
   const dispatch = useDispatch();
 
   useEffect(() => {

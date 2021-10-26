@@ -7,11 +7,14 @@ import {
     Box,
     TextField,
     TextareaAutosize,
+    MenuItem,
 } from '@material-ui/core';
 import { DesktopDatePicker } from '@material-ui/lab';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
+import { MovieData } from '../../movies-container/MoviesContainer';
+import DataService from '../../../../services/service'
 import '../EditMovie/EditMovie.scss';
 
 interface AddMovieProps {
@@ -23,6 +26,13 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
 
     const [value, setValue] = useState<Date | null>(null);
     const [genre, setGenre] = useState<string>('');
+    const [availableGenres, setAvailableGenres] = useState<string[]>([]);
+
+    useEffect(() => {
+        DataService.getAllMovies().then((res: MovieData[]) => {
+            setAvailableGenres(Array.from(new Set(res.map(i => i.genres).flat())));
+        })
+    }, []);
 
     const handleDropDownChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setGenre(event.target.value);
@@ -126,11 +136,11 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                     value={genre}
                                     onChange={handleDropDownChange}
                                 >
-                                    {/* {movieGenres.map((option) => (
-                                        <MenuItem key={option} value={option}>
-                                            {option}
+                                    {availableGenres.map((genre: string) => (
+                                        <MenuItem key={genre} value={genre}>
+                                            {genre}
                                         </MenuItem>
-                                    ))} */}
+                                    ))}
                                 </TextField>
                             </div>
                             <div className='runtime'>

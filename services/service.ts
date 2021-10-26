@@ -1,9 +1,10 @@
 import axios from "axios";
-import { MovieData } from "../components/movies-container/MoviesContainer";
+import { MovieData, ResponseMoviesType } from "../src/components/movies-container/MoviesContainer";
 
-class TutorialDataService {
-    getAllMovies() {
-      return axios.get("http://localhost:4000/movies");
+class DataService {
+    async getAllMovies() {
+      const res = await axios.get<ResponseMoviesType>(`http://localhost:4000/movies`);
+      return res.data.data;
     }
   
     getMoiveById(id: number) {
@@ -22,27 +23,20 @@ class TutorialDataService {
       return axios.delete(`http://localhost:4000/movies/${id}`);
     }
 
+    async filterMovies(filter: string) {
+      const res = await axios.get<ResponseMoviesType>(`http://localhost:4000/movies?filter=${filter}`);
+      return res.data.data;
+    }
 
+    async sortMovies(sortBy: string) {
+      const res = await axios.get<ResponseMoviesType>(`http://localhost:4000/movies?sortBy=${sortBy}&sortOrder=desc`);
+      return res.data.data;
+    }
+
+    async sortAndFilterMovies(sortBy: string, filter: string) {
+      const res = await axios.get<ResponseMoviesType>(`http://localhost:4000/movies?sortBy=${sortBy}&sortOrder=desc&filter=${filter}`);
+      return res.data.data;
+    }
+   }
   
-    // create(data) {
-    //   return http.post("/tutorials", data);
-    // }
-  
-    // update(id, data) {
-    //   return http.put(`/tutorials/${id}`, data);
-    // }
-  
-    // delete(id) {
-    //   return http.delete(`/tutorials/${id}`);
-    // }
-  
-    // deleteAll() {
-    //   return http.delete(`/tutorials`);
-    // }
-  
-    // findByTitle(title) {
-    //   return http.get(`/tutorials?title=${title}`);
-    // }
-  }
-  
-  export default new TutorialDataService();
+  export default new DataService();
