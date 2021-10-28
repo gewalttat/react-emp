@@ -14,8 +14,6 @@ export const AppHeader: FC<AppHeaderProps> = ({selectedMovie}) => {
   const [openAddMovieDialog, setOpenAddMovieDialog] = useState<boolean>(false);
   const { showMovie } = useGlobalContext();
 
-  console.log(selectedMovie, 'cs movie')
-
   const openAddDialog = () => {
     setOpenAddMovieDialog(true);
   };

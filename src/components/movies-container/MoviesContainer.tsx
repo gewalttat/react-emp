@@ -1,44 +1,57 @@
 import { Grid, Typography } from '@material-ui/core';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import ErrorBoundary from '../error-boundary/ErrorBoundary';
 import { MovieCard } from '../movie-card/MovieCard';
 import { SortingFilter } from '../sorting-filter/SortingFilter';
-import moment from 'moment';
 import './MoviesContainer.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMovies, filterMovies, filterAndSortMovies, sortMovies, selectMovies } from '../../redux/moviesReducer';
 
 export interface MovieData {
-  name: string,
-  year: string,
-  genre: string,
-  rating: string,
-  runtime: string,
-  overview: string
+  budget: number;
+  genres: string[];
+  id: number;
+  overview: string;
+  poster_path: string;
+  release_date: string;
+  revenue: number;
+  runtime: number;
+  tagline: string;
+  title: string;
+  vote_average: number;
+  vote_count: number;
+}
+
+export interface ResponseMoviesType {
+  data: MovieData[];
+  limit: number;
+  offset: number;
+  totalAmount: number;
 }
 
 export const MoviesContainer: FC = () => {
+  const [filteredMovies, setFilteredMovies] = useState<MovieData[]>();
+  const [filter, filterChanged] = useState<string>();
+  const [sortBy, sortByChanged] = useState<string>();
+  const { movies } = useSelector(selectMovies);
+  const dispatch = useDispatch();
 
-  const movieData: MovieData[] = [{
-    name: 'Pulp Fiction',
-    year: moment().subtract(10, 'days').calendar(),
-    genre: 'CRIME',
-    rating: '7.8',
-    runtime: '137',
-    overview: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum'
-  },
-{
-  name: 'Kill Bill',
-  year: moment().subtract(10, 'days').calendar(),
-  genre: 'CRIME',
-  rating: '7.8',
-  runtime: '137',
-  overview: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit'
-}
-];
+  useEffect(() => {
+    dispatch(
+      filter && !sortBy ? filterMovies(filter.toLowerCase())
+        : sortBy && !filter ? sortMovies(sortBy.toLowerCase())
+          : filter && sortBy ? filterAndSortMovies({ sortBy: sortBy.toLowerCase(), filter: filter.toLowerCase() })
+            : getMovies());
+  }, [filter, sortBy]);
+
+  useEffect(() => {
+    setFilteredMovies(() => movies);
+  }, [movies]);
 
   return (
     <div className='movies-container'>
       <ErrorBoundary>
-        <SortingFilter />
+        <SortingFilter filterChanged={filterChanged} sortByChanged={sortByChanged} />
         <hr style={{
           width: '90%',
           marginLeft: '0px',
@@ -56,7 +69,7 @@ export const MoviesContainer: FC = () => {
           }}
           variant="body2"
           color="text.secondary">
-          <b>39</b>movies found
+          <b>{filteredMovies?.length}</b>movies found
         </Typography>
         <div className='movies-grid'>
           <Grid
@@ -70,7 +83,7 @@ export const MoviesContainer: FC = () => {
               sm: 8,
               md: 12.5
             }}>
-            {movieData.map((i, index) => (
+            {filteredMovies?.map((i, index) => (
               <Grid
                 item
                 xs={2}

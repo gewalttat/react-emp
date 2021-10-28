@@ -1,5 +1,4 @@
 import { Paper, Grid, ButtonBase, Typography, IconButton } from '@material-ui/core';
-import cardImage from '../../assets/images/movie-card.jpg'
 import React, { FC } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import './SelectedMovieInfo.scss'
@@ -24,7 +23,7 @@ export const SelectedMovieInfo: FC<SelectedMovieInfoProps> = ({selectedMovie}) =
             <Grid container spacing={2}>
                 <Grid item>
                     <ButtonBase sx={{ height: 486, paddingLeft: 12 }}>
-                        <img alt="complex" src={cardImage} />
+                        <img alt="complex" src={selectedMovie?.poster_path} className='movie-img'/>
                     </ButtonBase>
                 </Grid>
 
@@ -32,15 +31,15 @@ export const SelectedMovieInfo: FC<SelectedMovieInfoProps> = ({selectedMovie}) =
                     <Grid item xs container direction="column" spacing={2}>
                         <Grid item xs sx={{ marginTop: 1 }}>
                             <div style={{ display: 'inline-flex', marginLeft: 40}}>
-                                <span className='movie-info-header'>{selectedMovie?.name}</span>
-                                <div className='movie-info-rating'><span className='rating-text'>{selectedMovie?.rating}</span></div>
+                                <span className='movie-info-header'>{selectedMovie?.title}</span>
+                                <div className='movie-info-rating'><span className='rating-text'>{selectedMovie?.vote_average}</span></div>
                             </div>
                             <Typography variant="body2" gutterBottom sx={{marginLeft: 5, marginTop: 1}}>
-                                <span className='genre'>{selectedMovie?.genre}</span>
+                                <span className='genre'>{selectedMovie?.genres.join(', ')}</span>
                             </Typography>
 
                             <Typography variant="body2" color="text.secondary" sx={{marginLeft: 5, marginTop: 2}}>
-                                <span className='date-rotate'>{selectedMovie?.year}&nbsp;&nbsp;&nbsp;</span>
+                                <span className='date-rotate'>{selectedMovie?.release_date}&nbsp;&nbsp;&nbsp;</span>
                                 <span className='date-rotate'>&nbsp;&nbsp;&nbsp;2h 36m</span>
                             </Typography>
 
