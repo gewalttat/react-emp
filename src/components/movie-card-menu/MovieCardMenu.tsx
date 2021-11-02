@@ -88,7 +88,7 @@ export const MovieCardMenu: FC<MovieCardMenuProps> = ({movieData}) => {
           </MenuItem>
         ))}
       </Menu>
-      <DeleteMovie open={openDialogName === 'delete'} onClose={closeDialog} />
+      <DeleteMovie open={openDialogName === 'delete'} onClose={closeDialog} id={movieData.id}/>
       <EditMovie open={openDialogName === 'edit'} onClose={closeDialog} movieData={movieData}/>
     </div>
   );

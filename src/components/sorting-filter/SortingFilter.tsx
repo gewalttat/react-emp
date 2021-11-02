@@ -1,17 +1,17 @@
 import { createTheme, FormControl, MenuItem, Select, SelectChangeEvent, Tab, Tabs, ThemeProvider } from '@material-ui/core';
 import React, { FC, useEffect, useState } from 'react';
-import DataService from '../../../services/service'
+import DataService from '../../services/service'
 import { MovieData } from '../movies-container/MoviesContainer';
 import './SortingFilter.scss'
 
 interface SortingFilterProps {
     sortByChanged: (newValue: string) => void;
-    filterChanged: (newValue: string) => void;
+    filterChanged: (newValue: string | undefined) => void;
 }
 export const SortingFilter: FC<SortingFilterProps> = ({ filterChanged, sortByChanged }) => {
     const [value, setValue] = useState<number>(0);
     const [filter, setFilter] = React.useState<string>('');
-    const [movieGenres, setMovieGenres] = useState<string[]>([]);
+    const [movieGenres, setMovieGenres] = useState<(string | undefined)[]>([]);
 
     useEffect(() => {
         DataService.getAllMovies().then((res: MovieData[]) => {
@@ -48,7 +48,7 @@ export const SortingFilter: FC<SortingFilterProps> = ({ filterChanged, sortByCha
                     textColor="primary"
                     indicatorColor="secondary"
                     aria-label="secondary tabs example">
-                    {movieGenres.map((genre: string, index: number) =>
+                    {movieGenres?.map((genre: string | undefined, index: number) =>
                         <Tab
                             key={genre}
                             value={index}

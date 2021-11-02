@@ -60,7 +60,7 @@ export const MovieCard: FC<MovieDataProps> = ({movieData}) => {
                                 display: 'inline-flex',
                             }}>
                                 {movieData.title}
-                            <div className='movie-year'>{movieData.release_date.substring(0, 4)}</div>
+                            <div className='movie-year'>{movieData?.release_date?.substring(0, 4)}</div>
                         </Typography>
 
                         <Typography
@@ -74,7 +74,7 @@ export const MovieCard: FC<MovieDataProps> = ({movieData}) => {
                             }}
                             variant="body2"
                             color="text.secondary">
-                                {movieData.genres.join(', ')}
+                                {movieData?.genres?.join(', ')}
                         </Typography>
                     </CardContent>
                 </CardActionArea>

@@ -7,12 +7,14 @@ import {
     Box,
     TextField,
     TextareaAutosize,
+    MenuItem,
 } from '@material-ui/core';
 import { DesktopDatePicker } from '@material-ui/lab';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { MovieData } from '../../movies-container/MoviesContainer';
+import DataService from '../../../services/service'
 import './EditMovie.scss';
 
 interface EditMovieProps {
@@ -24,9 +26,22 @@ interface EditMovieProps {
 export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
 
     const [genre, setGenre] = useState<string>('');
+    const [availableGenres, setAvailableGenres] = useState<(string | undefined)[]>([]);
+    const [editedMovie, setEditedMovie] = useState<MovieData>();
+
+    useEffect(() => {
+        DataService.getAllMovies().then((res: MovieData[]) => {
+            const genresSet: (string | undefined)[] = Array.from(new Set(res.map(i => i.genres).flat()));
+            setAvailableGenres(genresSet);
+        })
+        setEditedMovie(movieData)
+    }, []);
+
+    console.log(editedMovie, 'data')
 
     const handleDropDownChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setGenre(event.target.value);
+        setEditedMovie({...editedMovie, genres: [genre]})
     };
 
     return (
@@ -74,7 +89,8 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                     required
                                     id="outlined-required"
                                     placeholder="Movie name"
-                                    value={movieData.title}
+                                    value={editedMovie?.title}
+                                    onChange={(event) => setEditedMovie({...editedMovie, title: event.target.value})}
                                 />
                             </div>
                             <div className='release-date'>
@@ -84,7 +100,7 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                         label="Custom input"
                                         value={movieData.release_date}
                                         onChange={(newValue) => {
-                                            console.log(newValue);
+                                            setEditedMovie({...editedMovie, release_date: newValue});
                                         }}
                                         renderInput={({ inputRef, inputProps, InputProps }) => (
                                             <Box className='datepicker'>
@@ -105,7 +121,8 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                     required
                                     id="outlined-required"
                                     placeholder="7.8"
-                                    value={movieData.vote_average}
+                                    value={editedMovie?.vote_average}
+                                    onChange={(event) => setEditedMovie({...editedMovie, vote_average: Number(event?.target?.value)})}
                                 />
                             </div>
                             <div className='movie-url'>
@@ -116,6 +133,8 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                     style={{ width: '320px', backgroundColor: '#424242' }}
                                     id="outlined-read-only-input"
                                     placeholder="https://"
+                                    value={editedMovie?.poster_path}
+                                    onChange={(event) => setEditedMovie({...editedMovie, poster_path: event?.target?.value})}
                                 />
                             </div>
                             <div className='genre'>
@@ -126,14 +145,14 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                     style={{ width: '320px', backgroundColor: '#424242' }}
                                     id="outlined-select-currency"
                                     select
-                                    value={movieData.genres.join(', ')}
+                                    value={movieData?.genres?.join(', ')}
                                     onChange={handleDropDownChange}
                                 >
-                                    {/* {movieGenres.map((option) => (
-                                        <MenuItem key={option} value={option}>
-                                            {option}
+                                    {availableGenres?.map((genre: string | undefined) => (
+                                        <MenuItem key={genre} value={genre}>
+                                            {genre}
                                         </MenuItem>
-                                    ))} */}
+                                    ))}
                                 </TextField>
                             </div>
                             <div className='runtime'>
@@ -144,7 +163,8 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                     style={{ backgroundColor: '#424242' }}
                                     id="outlined-read-only-input"
                                     placeholder="minutes"
-                                    value={movieData.runtime}
+                                    value={editedMovie?.runtime}
+                                    onChange={(event) => setEditedMovie({...editedMovie, runtime: Number(event?.target?.value)})}
                                 />
                             </div>
                         </div>
@@ -157,7 +177,8 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                             minRows={3}
                             className='overview__textarea'
                             placeholder='Movie description'
-                            value={movieData.overview}
+                            value={editedMovie?.overview}
+                            onChange={(event) => setEditedMovie({...editedMovie, overview: event?.target?.value})}
                         />
                     </div>
                 </DialogContent>
@@ -175,7 +196,10 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                         }}>RESET</Button>
 
                     <Button
-                        onClick={onClose}
+                        onClick={() => {
+                            onClose;
+                            DataService.updateMovie(editedMovie);
+                        }}
                         variant="contained"
                         sx={{
                             margin: '20px 20px 40px 40px',

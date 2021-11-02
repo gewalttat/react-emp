@@ -1,5 +1,5 @@
 import axios from "axios";
-import { MovieData, ResponseMoviesType } from "../src/components/movies-container/MoviesContainer";
+import { MovieData, ResponseMoviesType } from "../components/movies-container/MoviesContainer";
 
 class DataService {
     async getAllMovies() {
@@ -11,15 +11,15 @@ class DataService {
         return axios.get(`http://localhost:4000/movies/${id}`);
     }
 
-    createMovie(movie: MovieData) {
+    async createMovie(movie: MovieData | undefined) {
       return axios.post("http://localhost:4000/movies", movie);
     }
 
-    updateMovie(movie: MovieData) {
-      return axios.put("http://localhost:4000/movies", movie);
+    async updateMovie(movie: MovieData | undefined) {
+      return axios.put(`http://localhost:4000/movies`, movie);
     }
 
-    deleteMovie(id: number) {
+    async deleteMovie(id: number | undefined) {
       return axios.delete(`http://localhost:4000/movies/${id}`);
     }
 

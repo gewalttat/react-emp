@@ -1,8 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './configureStore';
 import { MovieData } from '../components/movies-container/MoviesContainer';
-import DataService from '../../services/service'
-import axios from 'axios';
+import DataService from '../services/service'
 
 export const getMovies = createAsyncThunk('getMovies', async () => {
   const response = await DataService.getAllMovies();
@@ -81,7 +80,6 @@ const moviesSlice = createSlice({
     builder.addCase(filterAndSortMovies.rejected, (state) => {
       state.loadingState = 'error';
     });
-
   }
 });
 

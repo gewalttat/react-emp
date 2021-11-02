@@ -35,7 +35,7 @@ export const SelectedMovieInfo: FC<SelectedMovieInfoProps> = ({selectedMovie}) =
                                 <div className='movie-info-rating'><span className='rating-text'>{selectedMovie?.vote_average}</span></div>
                             </div>
                             <Typography variant="body2" gutterBottom sx={{marginLeft: 5, marginTop: 1}}>
-                                <span className='genre'>{selectedMovie?.genres.join(', ')}</span>
+                                <span className='genre'>{selectedMovie?.genres?.join(', ')}</span>
                             </Typography>
 
                             <Typography variant="body2" color="text.secondary" sx={{marginLeft: 5, marginTop: 2}}>
@@ -48,6 +48,7 @@ export const SelectedMovieInfo: FC<SelectedMovieInfoProps> = ({selectedMovie}) =
                             </Typography>
                         </Grid>
                     </Grid>
+                    
 
                     <Grid item>
                         <Typography variant="subtitle1" component="div">

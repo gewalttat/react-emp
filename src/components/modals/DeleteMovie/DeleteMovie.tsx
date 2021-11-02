@@ -1,12 +1,14 @@
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 import React, { FC } from 'react';
+import DataService from '../../../services/service';
 
 interface DeleteMovieProps {
     open: boolean,
-    onClose: () => void
+    onClose: () => void,
+    id: number | undefined;
 }
 
-export const DeleteMovie: FC<DeleteMovieProps> = ({ open, onClose }) => {
+export const DeleteMovie: FC<DeleteMovieProps> = ({ open, onClose, id }) => {
     return (
         <div>
             <Dialog
@@ -33,7 +35,6 @@ export const DeleteMovie: FC<DeleteMovieProps> = ({ open, onClose }) => {
                 </DialogTitle>
 
                 <DialogContent sx={{ backgroundColor: '#232323' }}>
-
                     <DialogContentText
                         id="alert-dialog-description"
                         sx={{
@@ -48,7 +49,10 @@ export const DeleteMovie: FC<DeleteMovieProps> = ({ open, onClose }) => {
 
                 <DialogActions sx={{ backgroundColor: '#232323', color: '#fff' }}>
                     <Button
-                        onClick={onClose}
+                        onClick={() => {
+                            DataService.deleteMovie(id);
+                            onClose;
+                        }}
                         variant="contained"
                         sx={{
                             margin: '40px 40px 40px 40px',
@@ -56,7 +60,6 @@ export const DeleteMovie: FC<DeleteMovieProps> = ({ open, onClose }) => {
                             ":hover": { backgroundColor: '#f33242' }
                         }}>CONFIRM</Button>
                 </DialogActions>
-
             </Dialog>
         </div>
     );
