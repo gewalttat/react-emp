@@ -27,22 +27,25 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
     const [value, setValue] = useState<Date | null>(null);
     const [genre, setGenre] = useState<string>('');
     const [availableGenres, setAvailableGenres] = useState<(string | undefined)[]>([]);
-    const [movie, setMovie] = useState<MovieData>();
-
-    console.log(movie?.title);
-    console.log(movie, 'your movie');
+    const [movie, setMovie] = useState<MovieData>({ title: '', release_date: '', overview: '', poster_path: '', genres: [], vote_average: 0, runtime: 0 });
+    const [isFilled, setIsFilled] = useState<boolean>(false);
 
     useEffect(() => {
         DataService.getAllMovies().then((res: MovieData[]) => {
             const genresSet: (string | undefined)[] = Array.from(new Set(res.map(i => i.genres).flat()));
             setAvailableGenres(genresSet);
-        })
+        });
     }, []);
 
     const handleDropDownChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setGenre(event.target.value);
-        setMovie({...movie, genres: [event.target.value]})
+        setMovie({ ...movie, genres: [event.target.value] })
     };
+
+    useEffect(() => {
+        const isEmpty = movie && Object.values(movie).every(x => !!x);
+        setIsFilled(isEmpty);
+    }, [movie])
 
     return (
         <div>
@@ -80,8 +83,10 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                     style={{ width: '320px', backgroundColor: '#424242' }}
                                     required
                                     id="outlined-required"
-                                    onChange={(event) => setMovie({...movie, title: event.target.value})}
-                                    placeholder="Movie name" />
+                                    onChange={(event) => setMovie({ ...movie, title: event.target.value })}
+                                    placeholder="Movie name"
+                                    error={!movie.title}
+                                    helperText='Title is required' />
                             </div>
                             <div className='release-date'>
                                 <br />
@@ -91,7 +96,7 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                         value={value}
                                         onChange={(newValue) => {
                                             setValue(newValue);
-                                            setMovie({...movie, release_date: newValue?.toISOString().slice(0,10)});
+                                            setMovie({ ...movie, release_date: newValue?.toISOString().slice(0, 10) });
                                         }}
                                         renderInput={({ inputRef, inputProps, InputProps }) => (
                                             <Box className='datepicker'>
@@ -107,29 +112,35 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                 <span>overview</span>
                                 <br />
                                 <TextField
+                                    error={!movie.vote_average || typeof(movie.vote_average) !== 'number'}
+                                    helperText='Average is required and must be integer'
                                     style={{ backgroundColor: '#424242' }}
                                     className='textfield'
                                     required
                                     id="outlined-required"
                                     placeholder="7.8"
-                                    onChange={(event) => setMovie({...movie, vote_average: Number(event.target.value)})}
+                                    onChange={(event) => setMovie({ ...movie, vote_average: Number(event.target.value) })}
                                 />
                             </div>
                             <div className='movie-url'>
                                 <span>movie-url</span>
                                 <br />
                                 <TextField
+                                    error={!movie.poster_path}
+                                    helperText='Poster path is required'
                                     className='textfield'
                                     style={{ width: '320px', backgroundColor: '#424242' }}
                                     id="outlined-read-only-input"
                                     placeholder="https://"
-                                    onChange={(event) => setMovie({...movie, poster_path: event.target.value})}
+                                    onChange={(event) => setMovie({ ...movie, poster_path: event.target.value })}
                                 />
                             </div>
                             <div className='genre'>
                                 <span>genre</span>
                                 <br />
                                 <TextField
+                                    error={!movie.genres}
+                                    helperText='At least one genre is required'
                                     className='genre-selector'
                                     style={{ width: '320px', backgroundColor: '#424242' }}
                                     id="outlined-select-currency"
@@ -148,11 +159,13 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                 <span>runtime</span>
                                 <br />
                                 <TextField
+                                error={!movie.runtime || typeof(movie.runtime) !== 'number'}
+                                helperText='Runtime is required and must be integer'
                                     className='textfield'
                                     style={{ backgroundColor: '#424242' }}
                                     id="outlined-read-only-input"
                                     placeholder="minutes"
-                                    onChange={(event) => setMovie({...movie, runtime: Number(event.target.value)})}
+                                    onChange={(event) => setMovie({ ...movie, runtime: Number(event.target.value) })}
                                 />
                             </div>
                         </div>
@@ -165,7 +178,7 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                             minRows={3}
                             className='overview__textarea'
                             placeholder='Movie description'
-                            onChange={(event) => setMovie({...movie, overview: event.target.value})}
+                            onChange={(event) => setMovie({ ...movie, overview: event.target.value })}
                         />
                     </div>
                 </DialogContent>
@@ -189,6 +202,7 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                         }}
                         variant="contained"
                         type='submit'
+                        disabled={!isFilled}
                         sx={{
                             margin: '20px 20px 40px 40px',
                             backgroundColor: '#f65261',
