@@ -1,5 +1,7 @@
 import { Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@material-ui/core';
 import React, { FC } from 'react';
+import { useDispatch } from 'react-redux';
+import { getMovies } from '../../../redux/moviesReducer';
 import DataService from '../../../services/service';
 
 interface DeleteMovieProps {
@@ -9,6 +11,8 @@ interface DeleteMovieProps {
 }
 
 export const DeleteMovie: FC<DeleteMovieProps> = ({ open, onClose, id }) => {
+    const dispatch = useDispatch();
+    
     return (
         <div>
             <Dialog
@@ -51,7 +55,8 @@ export const DeleteMovie: FC<DeleteMovieProps> = ({ open, onClose, id }) => {
                     <Button
                         onClick={() => {
                             DataService.deleteMovie(id);
-                            onClose;
+                            dispatch(getMovies());
+                            onClose();
                         }}
                         variant="contained"
                         sx={{

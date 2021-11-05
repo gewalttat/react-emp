@@ -28,7 +28,7 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
     const [genre, setGenre] = useState<string>('');
     const [availableGenres, setAvailableGenres] = useState<(string | undefined)[]>([]);
     const [movie, setMovie] = useState<MovieData>({ title: '', release_date: '', overview: '', poster_path: '', genres: [], vote_average: 0, runtime: 0 });
-    const [isFilled, setIsFilled] = useState<boolean>(false);
+    const [isMovieLabelsFilled, setIsMovieLabelsFilled] = useState<boolean>(false);
 
     useEffect(() => {
         DataService.getAllMovies().then((res: MovieData[]) => {
@@ -44,7 +44,7 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
 
     useEffect(() => {
         const isEmpty = movie && Object.values(movie).every(x => !!x);
-        setIsFilled(isEmpty);
+        setIsMovieLabelsFilled(isEmpty);
     }, [movie])
 
     return (
@@ -86,7 +86,7 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                     onChange={(event) => setMovie({ ...movie, title: event.target.value })}
                                     placeholder="Movie name"
                                     error={!movie.title}
-                                    helperText='Title is required' />
+                                    helperText={!movie.title && 'Title is required'} />
                             </div>
                             <div className='release-date'>
                                 <br />
@@ -113,7 +113,7 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                 <br />
                                 <TextField
                                     error={!movie.vote_average || typeof(movie.vote_average) !== 'number'}
-                                    helperText='Average is required and must be integer'
+                                    helperText={!movie.vote_average || typeof(movie.vote_average) !== 'number' && 'Average is required and must be integer'}
                                     style={{ backgroundColor: '#424242' }}
                                     className='textfield'
                                     required
@@ -127,7 +127,7 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                 <br />
                                 <TextField
                                     error={!movie.poster_path}
-                                    helperText='Poster path is required'
+                                    helperText={!movie.poster_path && 'Poster path is required'}
                                     className='textfield'
                                     style={{ width: '320px', backgroundColor: '#424242' }}
                                     id="outlined-read-only-input"
@@ -140,7 +140,7 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                 <br />
                                 <TextField
                                     error={!movie.genres}
-                                    helperText='At least one genre is required'
+                                    helperText={!movie.genres && 'At least one genre is required'}
                                     className='genre-selector'
                                     style={{ width: '320px', backgroundColor: '#424242' }}
                                     id="outlined-select-currency"
@@ -160,7 +160,7 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                 <br />
                                 <TextField
                                 error={!movie.runtime || typeof(movie.runtime) !== 'number'}
-                                helperText='Runtime is required and must be integer'
+                                helperText={!movie.runtime || typeof(movie.runtime) !== 'number' && 'Runtime is required and must be integer'}
                                     className='textfield'
                                     style={{ backgroundColor: '#424242' }}
                                     id="outlined-read-only-input"
@@ -202,7 +202,7 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                         }}
                         variant="contained"
                         type='submit'
-                        disabled={!isFilled}
+                        disabled={!isMovieLabelsFilled}
                         sx={{
                             margin: '20px 20px 40px 40px',
                             backgroundColor: '#f65261',
