@@ -6,6 +6,7 @@ import { SortingFilter } from '../sorting-filter/SortingFilter';
 import './MoviesContainer.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMovies, filterMovies, filterAndSortMovies, sortMovies, selectMovies } from '../../redux/moviesReducer';
+import { useHistory, useLocation } from 'react-router';
 
 export interface MovieData {
   budget?: number;
@@ -29,19 +30,44 @@ export interface ResponseMoviesType {
   totalAmount: number;
 }
 
+export const usePathname: (() => string) = () => {
+  const location = useLocation();
+  return location.pathname;
+}
+
 export const MoviesContainer: FC = () => {
   const [filteredMovies, setFilteredMovies] = useState<MovieData[]>();
   const [filter, filterChanged] = useState<string>();
   const [sortBy, sortByChanged] = useState<string>();
   const { movies } = useSelector(selectMovies);
   const dispatch = useDispatch();
+  const history = useHistory();
+  const queryParams = new URLSearchParams();
+  const location = useLocation();
 
   useEffect(() => {
+
     dispatch(
       filter && !sortBy ? filterMovies(filter.toLowerCase())
         : sortBy && !filter ? sortMovies(sortBy.toLowerCase())
           : filter && sortBy ? filterAndSortMovies({ sortBy: sortBy.toLowerCase(), filter: filter.toLowerCase() })
             : getMovies());
+
+    filter && history.push({
+      pathname: '/search',
+      search: `?filter=${filter}`
+    });
+
+    sortBy && history.push({
+      pathname: '/search',
+      search: `?sortBy=${sortBy}`
+    });
+
+    filter && sortBy && history.push({
+      pathname: '/search',
+      search: `?sortBy=${sortBy}&filter=${filter}`
+    });
+
   }, [filter, sortBy]);
 
   useEffect(() => {

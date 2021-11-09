@@ -24,6 +24,11 @@ export const filterAndSortMovies = createAsyncThunk('filterAndSortMovies', async
   return response;
 });
 
+export const searchMovie = createAsyncThunk('searchMovie', async (searchValue: string) => {
+  const response = await DataService.searchMovie(searchValue);
+  return response;
+});
+
 const initialState = {
   loadingState: 'initial',
   movies: []
@@ -78,6 +83,17 @@ const moviesSlice = createSlice({
       state.movies = action.payload;
     });
     builder.addCase(filterAndSortMovies.rejected, (state) => {
+      state.loadingState = 'error';
+    });
+
+    builder.addCase(searchMovie.pending, (state) => {
+      state.loadingState = 'loading'
+    });
+    builder.addCase(searchMovie.fulfilled, (state, action: PayloadAction<MovieData[]>) => {
+      state.loadingState = 'ready';
+      state.movies = action.payload;
+    });
+    builder.addCase(searchMovie.rejected, (state) => {
       state.loadingState = 'error';
     });
   }

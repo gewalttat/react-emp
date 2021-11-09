@@ -1,5 +1,6 @@
 import { createTheme, FormControl, MenuItem, Select, SelectChangeEvent, Tab, Tabs, ThemeProvider } from '@material-ui/core';
 import React, { FC, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import DataService from '../../services/service'
 import { MovieData } from '../movies-container/MoviesContainer';
 import './SortingFilter.scss'
@@ -12,6 +13,8 @@ export const SortingFilter: FC<SortingFilterProps> = ({ filterChanged, sortByCha
     const [value, setValue] = useState<number>(0);
     const [filter, setFilter] = React.useState<string>('');
     const [movieGenres, setMovieGenres] = useState<(string | undefined)[]>([]);
+    const history = useHistory();
+    const queryParams = new URLSearchParams();
 
     useEffect(() => {
         DataService.getAllMovies().then((res: MovieData[]) => {
@@ -54,7 +57,9 @@ export const SortingFilter: FC<SortingFilterProps> = ({ filterChanged, sortByCha
                             value={index}
                             label={genre}
                             sx={{ color: '#fff', fontWeight: 500, fontSize: 16 }}
-                            onClick={() => filterChanged(genre)} />
+                            onClick={() => {
+                                filterChanged(genre);                            
+                            }} />
                     )}
                 </Tabs>
 
