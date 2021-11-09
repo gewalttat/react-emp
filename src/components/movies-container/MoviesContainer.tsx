@@ -8,18 +8,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMovies, filterMovies, filterAndSortMovies, sortMovies, selectMovies } from '../../redux/moviesReducer';
 
 export interface MovieData {
-  budget: number;
-  genres: string[];
-  id: number;
-  overview: string;
-  poster_path: string;
-  release_date: string;
-  revenue: number;
-  runtime: number;
-  tagline: string;
-  title: string;
-  vote_average: number;
-  vote_count: number;
+  budget?: number;
+  genres?: string[];
+  id?: number;
+  overview?: string;
+  poster_path?: string;
+  release_date?: string | null;
+  revenue?: number;
+  runtime?: number;
+  tagline?: string;
+  title?: string;
+  vote_average?: number;
+  vote_count?: number;
 }
 
 export interface ResponseMoviesType {
