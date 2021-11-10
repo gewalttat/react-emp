@@ -13,13 +13,13 @@ export const SearchInput: FC = () => {
         setSearchInput(event.target.value);
     };
 
-    useEffect(() => {
+    const handleSearchMovie = () => {
         dispatch(searchMovie(searchInput));
         history.push({
             pathname: '/search',
             search: `?${searchInput}`
         });
-    }, [searchInput])
+    }
 
     return (
         <>
@@ -37,7 +37,7 @@ export const SearchInput: FC = () => {
                     <div
                         className='search-button'
                         onClick={() => console.log('search event')}>
-                        <span className='search-button-caption'>search</span>
+                        <span className='search-button-caption' onClick={handleSearchMovie}>search</span>
                     </div>
                 </div>
             </div>
