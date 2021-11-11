@@ -8,10 +8,10 @@ import { MovieData } from '../movies-container/MoviesContainer';
 import { useHistory } from 'react-router';
 
 interface AppHeaderProps {
-selectedMovie: MovieData | null
+  selectedMovie: MovieData | null
 }
 
-export const AppHeader: FC<AppHeaderProps> = ({selectedMovie}) => {
+export const AppHeader: FC<AppHeaderProps> = ({ selectedMovie }) => {
   const [openAddMovieDialog, setOpenAddMovieDialog] = useState<boolean>(false);
   const { showMovie } = useGlobalContext();
   const history = useHistory();
@@ -28,14 +28,15 @@ export const AppHeader: FC<AppHeaderProps> = ({selectedMovie}) => {
     showMovie && history.push({
       pathname: '/search',
       search: `?movie=${selectedMovie?.id}`
-  });
-  }, [showMovie])
+    });
+  }, [selectedMovie])
 
+  console.log(selectedMovie, 'selected')
 
   return (
 
     <>
-      {showMovie ? <SelectedMovieInfo selectedMovie={selectedMovie}/> :
+      {(showMovie || selectedMovie) ? <SelectedMovieInfo selectedMovie={selectedMovie} /> :
         <div className='header'>
           <div className='header-text'>
             <span className='header-text__bold'>netflix</span>

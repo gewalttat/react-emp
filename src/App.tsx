@@ -8,6 +8,7 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import { PageNotFound } from "./components/page-not-found/PageNotFound";
 
 
 function App(): JSX.Element {
@@ -18,6 +19,7 @@ function App(): JSX.Element {
           <Redirect to="/search"/>
         </Route>
         <Route path={"/search/"} exact component={MainPage}/>
+        <Route component={PageNotFound}/>
       </Switch>
     </Router>
   );

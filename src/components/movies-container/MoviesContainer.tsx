@@ -42,8 +42,12 @@ export const MoviesContainer: FC = () => {
   const { movies } = useSelector(selectMovies);
   const dispatch = useDispatch();
   const history = useHistory();
-  const queryParams = new URLSearchParams();
-  const location = useLocation();
+
+  const getGenre = new URLSearchParams(useLocation().search).get('genre');
+  const getSorting = new URLSearchParams(useLocation().search).get('sortBy');
+
+  console.log(getGenre, 'genre');
+  console.log(getSorting, 'sorting')
 
   useEffect(() => {
 
@@ -55,7 +59,7 @@ export const MoviesContainer: FC = () => {
 
     filter && history.push({
       pathname: '/search',
-      search: `?filter=${filter}`
+      search: `?genre=${filter}`
     });
 
     sortBy && history.push({
@@ -65,10 +69,18 @@ export const MoviesContainer: FC = () => {
 
     filter && sortBy && history.push({
       pathname: '/search',
-      search: `?sortBy=${sortBy}&filter=${filter}`
+      search: `?sortBy=${sortBy}&genre=${filter}`
     });
 
-  }, [filter, sortBy]);
+    if (getGenre && !filter) {
+      filterChanged(getGenre);
+    }
+
+    if (getSorting && !sortBy) {
+      sortByChanged(getSorting);
+    }
+
+  }, [filter, sortBy, getGenre, getSorting]);
 
   useEffect(() => {
     setFilteredMovies(() => movies);
@@ -77,7 +89,7 @@ export const MoviesContainer: FC = () => {
   return (
     <div className='movies-container'>
       <ErrorBoundary>
-        <SortingFilter filterChanged={filterChanged} sortByChanged={sortByChanged} />
+        <SortingFilter propsFilter={filter} propsSorting={sortBy} filterChanged={filterChanged} sortByChanged={sortByChanged} />
         <hr style={{
           width: '90%',
           marginLeft: '0px',
