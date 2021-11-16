@@ -37,6 +37,11 @@ class DataService {
       const res = await axios.get<ResponseMoviesType>(`http://localhost:4000/movies?sortBy=${sortBy}&sortOrder=desc&filter=${filter}`);
       return res.data.data;
     }
+
+    async searchMovie(searchValue: string) {
+      const res = await axios.get<ResponseMoviesType>(`http://localhost:4000/movies?search=${searchValue}&searchBy=title`);
+      return res.data.data;
+    }
    }
   
   export default new DataService();

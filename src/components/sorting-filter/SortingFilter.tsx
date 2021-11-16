@@ -5,19 +5,21 @@ import { MovieData } from '../movies-container/MoviesContainer';
 import './SortingFilter.scss'
 
 interface SortingFilterProps {
+    propsSorting: string | undefined;
+    propsFilter: string | undefined;
     sortByChanged: (newValue: string) => void;
     filterChanged: (newValue: string | undefined) => void;
 }
-export const SortingFilter: FC<SortingFilterProps> = ({ filterChanged, sortByChanged }) => {
+export const SortingFilter: FC<SortingFilterProps> = ({ propsSorting, propsFilter, filterChanged, sortByChanged }) => {
     const [value, setValue] = useState<number>(0);
     const [filter, setFilter] = React.useState<string>('');
-    const [movieGenres, setMovieGenres] = useState<(string | undefined)[]>([]);
+    const [movieGenres, setMovieGenres] = useState<any[]>([]);
 
     useEffect(() => {
         DataService.getAllMovies().then((res: MovieData[]) => {
             setMovieGenres(Array.from(new Set(res.map(i => i.genres).flat())));
-        })
-    }, []);
+        });
+    }, [propsFilter]);
 
     const theme = createTheme({
         palette: {
@@ -32,6 +34,7 @@ export const SortingFilter: FC<SortingFilterProps> = ({ filterChanged, sortByCha
 
     const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue);
+        filterChanged(movieGenres[newValue]);
     };
 
     const handleDropDownChange = (event: SelectChangeEvent) => {
@@ -43,7 +46,7 @@ export const SortingFilter: FC<SortingFilterProps> = ({ filterChanged, sortByCha
         <div className='sorting-filter-container'>
             <ThemeProvider theme={theme}>
                 <Tabs
-                    value={value}
+                    value={propsFilter ? movieGenres.indexOf(propsFilter) : value}
                     onChange={handleTabChange}
                     textColor="primary"
                     indicatorColor="secondary"
@@ -54,7 +57,9 @@ export const SortingFilter: FC<SortingFilterProps> = ({ filterChanged, sortByCha
                             value={index}
                             label={genre}
                             sx={{ color: '#fff', fontWeight: 500, fontSize: 16 }}
-                            onClick={() => filterChanged(genre)} />
+                            onClick={() => {
+                                filterChanged(genre);
+                            }} />
                     )}
                 </Tabs>
 
@@ -75,7 +80,7 @@ export const SortingFilter: FC<SortingFilterProps> = ({ filterChanged, sortByCha
                             sx={{ color: '#fff', borderBottom: 'none', ":after": { borderBottom: 'none' }, ":before": { borderBottom: 'none' }, ":hover": { borderBottom: 'none' } }}
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
-                            value={filter}
+                            value={propsSorting ? propsSorting : filter}
                             onChange={handleDropDownChange}>
                             <MenuItem value={'release_date'}>Release date</MenuItem>
                             <MenuItem value={'vote_average'}>Rating</MenuItem>

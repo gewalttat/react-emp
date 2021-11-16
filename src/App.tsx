@@ -6,15 +6,21 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from "react-router-dom";
+import { PageNotFound } from "./components/page-not-found/PageNotFound";
 
 
 function App(): JSX.Element {
   return (
     <Router>
-        <Switch>
-        <Route path="/" exact component={MainPage}/>
-        </Switch>
+      <Switch>
+        <Route path={"/"} exact>
+          <Redirect to="/search"/>
+        </Route>
+        <Route path={"/search/"} exact component={MainPage}/>
+        <Route component={PageNotFound}/>
+      </Switch>
     </Router>
   );
 }

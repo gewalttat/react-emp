@@ -1,18 +1,20 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { SearchInput } from '../search-input/SearchInput';
 import { AddMovie } from '../modals/AddMovie/AddMovie';
 import { SelectedMovieInfo } from '../selected-movie-info/SelectedMovieInfo';
 import { useGlobalContext } from '../main-page/MainPage';
 import './AppHeader.scss'
 import { MovieData } from '../movies-container/MoviesContainer';
+import { useHistory } from 'react-router';
 
 interface AppHeaderProps {
-selectedMovie: MovieData | null
+  selectedMovie: MovieData | null
 }
 
-export const AppHeader: FC<AppHeaderProps> = ({selectedMovie}) => {
+export const AppHeader: FC<AppHeaderProps> = ({ selectedMovie }) => {
   const [openAddMovieDialog, setOpenAddMovieDialog] = useState<boolean>(false);
   const { showMovie } = useGlobalContext();
+  const history = useHistory();
 
   const openAddDialog = () => {
     setOpenAddMovieDialog(true);
@@ -22,10 +24,19 @@ export const AppHeader: FC<AppHeaderProps> = ({selectedMovie}) => {
     setOpenAddMovieDialog(false);
   };
 
+  useEffect(() => {
+    showMovie && history.push({
+      pathname: '/search',
+      search: `?movie=${selectedMovie?.id}`
+    });
+  }, [selectedMovie])
+
+  console.log(selectedMovie, 'selected')
+
   return (
 
     <>
-      {showMovie ? <SelectedMovieInfo selectedMovie={selectedMovie}/> :
+      {(showMovie || selectedMovie) ? <SelectedMovieInfo selectedMovie={selectedMovie} /> :
         <div className='header'>
           <div className='header-text'>
             <span className='header-text__bold'>netflix</span>
