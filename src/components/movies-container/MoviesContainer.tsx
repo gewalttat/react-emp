@@ -7,6 +7,7 @@ import './MoviesContainer.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMovies, filterMovies, filterAndSortMovies, sortMovies, selectMovies } from '../../redux/moviesReducer';
 import { useHistory, useLocation } from 'react-router';
+import store from "../../redux/configureStore";
 
 export interface MovieData {
   budget?: number;
@@ -43,14 +44,10 @@ export const MoviesContainer: FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const getGenre = new URLSearchParams(useLocation().search).get('genre');
-  const getSorting = new URLSearchParams(useLocation().search).get('sortBy');
-
-  console.log(getGenre, 'genre');
-  console.log(getSorting, 'sorting')
+  const getGenre = new URLSearchParams(useLocation()?.search).get('genre');
+  const getSorting = new URLSearchParams(useLocation()?.search).get('sortBy');
 
   useEffect(() => {
-
     dispatch(
       filter && !sortBy ? filterMovies(filter.toLowerCase())
         : sortBy && !filter ? sortMovies(sortBy.toLowerCase())
@@ -84,6 +81,7 @@ export const MoviesContainer: FC = () => {
 
   useEffect(() => {
     setFilteredMovies(() => movies);
+    console.log(movies)
   }, [movies]);
 
   return (

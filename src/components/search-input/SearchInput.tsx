@@ -29,14 +29,15 @@ export const SearchInput: FC = () => {
                 </div>
                 <div>
                     <input
+                        aria-label="cost-input"
+                        name='search-input'
                         type="text"
                         placeholder='What do you want to watch?'
                         value={searchInput}
                         onChange={handleSearchInputChange}
                         className='search-input' />
                     <div
-                        className='search-button'
-                        onClick={() => console.log('search event')}>
+                        className='search-button'>
                         <span className='search-button-caption' onClick={handleSearchMovie}>search</span>
                     </div>
                 </div>

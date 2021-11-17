@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`With React Testing Library input renders correctly 1`] = `
+<div
+  className="search-input-panel"
+>
+  <div
+    className="search-input-header"
+  >
+    <span>
+      find your movie
+    </span>
+  </div>
+  <div>
+    <input
+      aria-label="cost-input"
+      className="search-input"
+      onChange={[Function]}
+      placeholder="What do you want to watch?"
+      type="text"
+      value=""
+    />
+    <div
+      className="search-button"
+    >
+      <span
+        className="search-button-caption"
+        onClick={[Function]}
+      >
+        search
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`With React Testing Library renders correctly 1`] = `
+<div
+  className="search-input-panel"
+>
+  <div
+    className="search-input-header"
+  >
+    <span>
+      find your movie
+    </span>
+  </div>
+  <div>
+    <input
+      aria-label="cost-input"
+      className="search-input"
+      onChange={[Function]}
+      placeholder="What do you want to watch?"
+      type="text"
+      value=""
+    />
+    <div
+      className="search-button"
+    >
+      <span
+        className="search-button-caption"
+        onClick={[Function]}
+      >
+        search
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`With React Testing Library search button renders correctly 1`] = `
+<div
+  className="search-input-panel"
+>
+  <div
+    className="search-input-header"
+  >
+    <span>
+      find your movie
+    </span>
+  </div>
+  <div>
+    <input
+      aria-label="cost-input"
+      className="search-input"
+      onChange={[Function]}
+      placeholder="What do you want to watch?"
+      type="text"
+      value=""
+    />
+    <div
+      className="search-button"
+    >
+      <span
+        className="search-button-caption"
+        onClick={[Function]}
+      >
+        search
+      </span>
+    </div>
+  </div>
+</div>
+`;
