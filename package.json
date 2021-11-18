@@ -2,6 +2,12 @@
   "name": "react-emp",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,tsx}",
+      "!src/index.tsx"
+    ]
+  },
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
@@ -13,6 +19,8 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^12.1.10",
+    "@types/enzyme": "^3.10.10",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
     "@types/react-dom": "^17.0.9",
@@ -24,6 +32,9 @@
     "axios": "^0.23.0",
     "cypress": "^9.0.0",
     "date-fns": "^2.24.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "enzyme-to-json": "^3.6.2",
     "eslint-plugin-react": "^7.26.0",
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",

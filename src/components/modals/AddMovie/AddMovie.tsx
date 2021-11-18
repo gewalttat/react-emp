@@ -12,7 +12,7 @@ import {
 import { DesktopDatePicker } from '@material-ui/lab';
 import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { MovieData } from '../../movies-container/MoviesContainer';
 import DataService from '../../../services/service';
 import '../EditMovie/EditMovie.scss';
@@ -31,10 +31,12 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
     const [isMovieLabelsFilled, setIsMovieLabelsFilled] = useState<boolean>(false);
 
     useEffect(() => {
+        let cleanupFunction = false;
         DataService.getAllMovies().then((res: MovieData[]) => {
             const genresSet: (string | undefined)[] = Array.from(new Set(res.map(i => i.genres).flat()));
-            setAvailableGenres(genresSet);
+            if(!cleanupFunction) setAvailableGenres(genresSet);
         });
+        cleanupFunction = true;
     }, []);
 
     const handleDropDownChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,8 +87,7 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                     id="outlined-required"
                                     onChange={(event) => setMovie({ ...movie, title: event.target.value })}
                                     placeholder="Movie name"
-                                    error={!movie.title}
-                                    helperText={!movie.title && 'Title is required'} />
+                                    error={!movie.title}/>
                             </div>
                             <div className='release-date'>
                                 <br />
@@ -113,7 +114,6 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                 <br />
                                 <TextField
                                     error={!movie.vote_average || typeof(movie.vote_average) !== 'number'}
-                                    helperText={!movie.vote_average || typeof(movie.vote_average) !== 'number' && 'Average is required and must be integer'}
                                     style={{ backgroundColor: '#424242' }}
                                     className='textfield'
                                     required
@@ -127,7 +127,6 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                 <br />
                                 <TextField
                                     error={!movie.poster_path}
-                                    helperText={!movie.poster_path && 'Poster path is required'}
                                     className='textfield'
                                     style={{ width: '320px', backgroundColor: '#424242' }}
                                     id="outlined-read-only-input"
@@ -140,7 +139,6 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                 <br />
                                 <TextField
                                     error={!movie.genres}
-                                    helperText={!movie.genres && 'At least one genre is required'}
                                     className='genre-selector'
                                     style={{ width: '320px', backgroundColor: '#424242' }}
                                     id="outlined-select-currency"
@@ -160,7 +158,6 @@ export const AddMovie: FC<AddMovieProps> = ({ open, onClose }) => {
                                 <br />
                                 <TextField
                                 error={!movie.runtime || typeof(movie.runtime) !== 'number'}
-                                helperText={!movie.runtime || typeof(movie.runtime) !== 'number' && 'Runtime is required and must be integer'}
                                     className='textfield'
                                     style={{ backgroundColor: '#424242' }}
                                     id="outlined-read-only-input"

@@ -4,7 +4,9 @@ import {MoviesContainer} from './MoviesContainer';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
-import {createMemoryHistory} from 'history'
+import thunk from 'redux-thunk'
+
+const middlewares = [thunk];
 
 const mockUseLocationValue = {
     pathname: "/testroute",
@@ -21,11 +23,23 @@ jest.mock('react-router', () => ({
 
 describe('With React Testing Library', () => {
   const initialState = {movies: []}
-  const mockStore = configureStore();
+  const mockStore = configureStore(middlewares);
 
   it('input renders correctly', () => {
     const store = mockStore(initialState);
     const tree = renderer.create(<Provider store={store}><MoviesContainer/></Provider>).toJSON();
     expect(tree).toMatchSnapshot();
   });
+
+  it('shows movies string', () => {
+    const store = mockStore(initialState);
+    const { getByText } = render(<Provider store={store}><MoviesContainer/></Provider>);
+    expect(getByText("movies found")).not.toBeNull();
+});
+
+it('shows sortby', () => {
+  const store = mockStore(initialState);
+  const { getByText } = render(<Provider store={store}><MoviesContainer/></Provider>);
+  expect(getByText("sort by")).not.toBeNull();
+});
 })
