@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`With React Testing Library renders correctly 1`] = `
+<div
+  onMouseEnter={[Function]}
+>
+  <div
+    className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation1 MuiCard-root css-82opd5-MuiPaper-root-MuiCard-root"
+  >
+    <button
+      className="MuiButtonBase-root MuiCardActionArea-root css-b6lsxj-MuiButtonBase-root-MuiCardActionArea-root"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onContextMenu={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <img
+        alt="card image"
+        className="MuiCardMedia-root MuiCardMedia-media MuiCardMedia-img css-o69gx8-MuiCardMedia-root"
+        height="486"
+        src="https://image.tmdb.org/t/p/w500/3kcEGnYBHDeqmdYf8ZRbKdfmlUy.jpg"
+      />
+      <div
+        className="MuiCardContent-root css-1qu37se-MuiCardContent-root"
+      >
+        <div
+          className="MuiTypography-root MuiTypography-h5 MuiTypography-gutterBottom css-46tk9y-MuiTypography-root"
+        >
+          Fifty Shades Freed
+          <div
+            className="movie-year"
+          >
+            2018
+          </div>
+        </div>
+        <p
+          className="MuiTypography-root MuiTypography-body2 css-je32x7-MuiTypography-root"
+        >
+          
+        </p>
+      </div>
+      <span
+        className="MuiCardActionArea-focusHighlight css-1v2exvi-MuiCardActionArea-focusHighlight"
+      />
+    </button>
+  </div>
+</div>
+`;

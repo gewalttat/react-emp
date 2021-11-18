@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
-import todosReducer from './moviesReducer';
+import moviesReducer from './moviesReducer';
 
 export default combineReducers({
-  movies: todosReducer
+  movies: moviesReducer
 });

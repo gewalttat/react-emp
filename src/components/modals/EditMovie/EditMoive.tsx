@@ -34,11 +34,12 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        let cleanupFunction = false;
         DataService.getAllMovies().then((res: MovieData[]) => {
             const genresSet: (string | undefined)[] = Array.from(new Set(res.map(i => i.genres).flat()));
-            setAvailableGenres(genresSet);
+            if(!cleanupFunction) setAvailableGenres(genresSet);
         })
-        setEditedMovie({
+        if(!cleanupFunction) setEditedMovie({
             title: movieData.title,
             release_date: movieData.release_date,
             overview: movieData.overview,
@@ -46,7 +47,8 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
             genres: movieData.genres,
             vote_average: movieData.vote_average,
             runtime: movieData.runtime
-        })
+        });
+        cleanupFunction = true;
     }, []);
 
     const handleDropDownChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,7 +102,6 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                 <br />
                                 <TextField
                                     error={!editedMovie?.title}
-                                    helperText={!editedMovie?.title && 'Title is required'}
                                     className='textfield'
                                     style={{ width: '320px', backgroundColor: '#424242' }}
                                     required
@@ -134,7 +135,6 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                 <br />
                                 <TextField
                                     error={!editedMovie?.vote_average || typeof (!editedMovie?.vote_average) !== 'number'}
-                                    helperText={!editedMovie?.vote_average || typeof (!editedMovie?.vote_average) !== 'number' && 'Average is required and must be integer'}
                                     style={{ backgroundColor: '#424242' }}
                                     className='textfield'
                                     required
@@ -149,7 +149,6 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                 <br />
                                 <TextField
                                     error={!editedMovie?.poster_path}
-                                    helperText={!editedMovie?.poster_path && 'Poster path is required'}
                                     className='textfield'
                                     style={{ width: '320px', backgroundColor: '#424242' }}
                                     id="outlined-read-only-input"
@@ -163,7 +162,6 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                 <br />
                                 <TextField
                                     error={!editedMovie?.genres}
-                                    helperText={!editedMovie?.genres && 'At least one genre is required'}
                                     className='genre-selector'
                                     style={{ width: '320px', backgroundColor: '#424242' }}
                                     id="outlined-select-currency"
@@ -183,7 +181,6 @@ export const EditMovie: FC<EditMovieProps> = ({ open, onClose, movieData }) => {
                                 <br />
                                 <TextField
                                     error={!editedMovie?.runtime || typeof (editedMovie?.runtime) !== 'number'}
-                                    helperText={!editedMovie?.runtime || typeof (editedMovie?.runtime) !== 'number' && 'Runtime is required and must be integer'}
                                     className='textfield'
                                     style={{ backgroundColor: '#424242' }}
                                     id="outlined-read-only-input"
