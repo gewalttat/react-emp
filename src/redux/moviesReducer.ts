@@ -9,7 +9,7 @@ export const getMovies = createAsyncThunk('getMovies', async () => {
 });
 
 export const filterMovies = createAsyncThunk('filterMovies', async (filter: string) => {
-  const response = await DataService.sortMovies(filter);
+  const response = await DataService.filterMovies(filter);
   return response;
 });
 
