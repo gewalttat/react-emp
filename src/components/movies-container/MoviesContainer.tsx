@@ -81,7 +81,6 @@ export const MoviesContainer: FC = () => {
 
   useEffect(() => {
     setFilteredMovies(() => movies);
-    console.log(movies)
   }, [movies]);
 
   return (
@@ -105,7 +104,7 @@ export const MoviesContainer: FC = () => {
           }}
           variant="body2"
           color="text.secondary">
-          <b>{filteredMovies?.length}</b>movies found
+          <b>{movies?.length}</b>movies found
         </Typography>
         <div className='movies-grid'>
           <Grid
@@ -119,7 +118,7 @@ export const MoviesContainer: FC = () => {
               sm: 8,
               md: 12.5
             }}>
-            {filteredMovies?.map((i, index) => (
+            {movies?.map((i, index) => (
               <Grid
                 item
                 xs={2}

@@ -30,9 +30,7 @@ export const AppHeader: FC<AppHeaderProps> = ({ selectedMovie }) => {
       search: `?movie=${selectedMovie?.id}`
     });
   }, [selectedMovie])
-
-  console.log(selectedMovie, 'selected')
-
+  
   return (
 
     <>
