@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from './configureStore';
+// import { RootState } from './configureStore';
 import { MovieData } from '../components/movies-container/MoviesContainer';
 import DataService from '../services/service'
 
@@ -9,7 +9,7 @@ export const getMovies = createAsyncThunk('getMovies', async () => {
 });
 
 export const filterMovies = createAsyncThunk('filterMovies', async (filter: string) => {
-  const response = await DataService.sortMovies(filter);
+  const response = await DataService.filterMovies(filter);
   return response;
 });
 
@@ -38,6 +38,10 @@ const moviesSlice = createSlice({
   name: 'moviesSlice',
   initialState,
   reducers: {
+    setMovies: (state, action) => {
+      state.loadingState = 'ready';
+      state.movies = action.payload;
+    },
     resetState: () => initialState
   },
   extraReducers: (builder) => {
@@ -99,9 +103,9 @@ const moviesSlice = createSlice({
   }
 });
 
-export const selectMovies: (state: RootState) => MoviesSliceType = (state: RootState) => state.movies;
+export const selectMovies: (state: any) => MoviesSliceType = (state: any) => state.movies;
 
-export const { resetState } = moviesSlice.actions;
+export const { setMovies, resetState } = moviesSlice.actions;
 
 export default moviesSlice.reducer;
 

@@ -21,6 +21,8 @@
     "@testing-library/user-event": "^12.1.10",
     "@types/enzyme": "^3.10.10",
     "@types/enzyme-adapter-react-16": "^1.0.6",
+    "@types/express": "^4.17.13",
+    "@types/ignore-styles": "^5.0.0",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
     "@types/react-dom": "^17.0.9",
@@ -36,8 +38,11 @@
     "enzyme-adapter-react-16": "^1.15.6",
     "enzyme-to-json": "^3.6.2",
     "eslint-plugin-react": "^7.26.0",
+    "express": "^4.17.1",
     "moment": "^2.29.1",
     "node-sass": "^5.0.0",
+    "node-ts": "^5.1.2",
+    "nodemon": "^2.0.15",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.5",
@@ -48,17 +53,44 @@
     "react-testing-library": "^8.0.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-mock-store": "^1.5.4",
+    "redux-saga": "^1.1.3",
     "redux-thunk": "^2.3.0",
     "sass": "^1.42.1",
     "scss": "^0.2.4",
+    "ts-node": "^10.4.0",
     "typescript": "^4.4.2",
     "uglifyjs-webpack-plugin": "^2.2.0"
   },
-  "devDependencies" : {
+  "scripts": {
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "server": "./node_modules/nodemon/bin/nodemon.js /Users/Ivan_Trishin/Desktop/ReactEMP/react-emp/src/server/index.ts"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
     "@types/react": "^17.0.20",
     "@types/react-router-dom": "^5.1.8",
     "add": "^2.0.6",
     "eslint": "^7.32.0",
+    "ignore-styles": "^5.0.1",
     "yarn": "^1.22.11"
   }
 }

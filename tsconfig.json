@@ -1,22 +1,26 @@
 {
-    "compilerOptions": {
-        "target": "es5",
-        "jsx": "react",
-        "noEmitOnError": true,
-        "noUnusedLocals": true,
-        "removeComments": true,
-        "noImplicitAny": true,
-        "esModuleInterop": true,
-        "baseUrl": "./",
-        "paths": {
-            "App": ["src/App"],
-            "Pages/*": ["src/Pages/*"],
-        }
-    },
-    "exclude": [
-        "node_modules"
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
-    "include": [
-        "./src/**/*.ts"
-      ]
+    "allowJs": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "include": [
+    "src"
+  ]
 }
